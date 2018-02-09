@@ -47,6 +47,8 @@ class RectangleDrawer {
            }
        }
     }
+    
+   
 
     /* The colour can be made brighter or darker.
      * currentBrightness is a number between 0.75 and 1.25

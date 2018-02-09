@@ -29,7 +29,7 @@ public class ShapeDrawer implements Drawer{
         g2d.setStroke(new BasicStroke(shape.getThickness()));
         
         
-        for(int i = 0; i <  shape.getVertices().size(); i ++){
+        for(int i = 0; i <  shape.getVertices().size(); i++){
            if(i == shape.getVertices().size()-1){
             g2d.drawLine(shape.getVertices().get(i).x, shape.getVertices().get(i).y, shape.getVertices().get(0).x, shape.getVertices().get(0).y);
            }else{

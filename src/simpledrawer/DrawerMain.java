@@ -115,6 +115,7 @@ public class DrawerMain extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simple Draw");
         setPreferredSize(new java.awt.Dimension(570, 550));
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         panControls.setPreferredSize(new java.awt.Dimension(270, 300));
         panControls.setLayout(new java.awt.BorderLayout());
@@ -123,7 +124,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.setLayout(new java.awt.GridLayout(4, 0));
 
         panRedScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panRedScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panRedScroller.setLayout(new java.awt.FlowLayout(0));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Red");
@@ -149,7 +150,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.add(panRedScroller);
 
         panGreenScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panGreenScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panGreenScroller.setLayout(new java.awt.FlowLayout(0));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Green");
@@ -175,7 +176,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.add(panGreenScroller);
 
         panBlueScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panBlueScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panBlueScroller.setLayout(new java.awt.FlowLayout(0));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Blue");
@@ -275,7 +276,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         panMoreControls.add(panShape);
 
-        panThickness.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panThickness.setLayout(new java.awt.FlowLayout(0));
 
         jLabel1.setText("Thickness");
         panThickness.add(jLabel1);
@@ -305,7 +306,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         panMoreControls.add(panThickness);
 
-        panRotate.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panRotate.setLayout(new java.awt.FlowLayout(0));
 
         jLabel2.setText("Rotate");
         panRotate.add(jLabel2);
@@ -377,7 +378,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(jLabel7);
 
         panBlueScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panBlueScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panBlueScroller1.setLayout(new java.awt.FlowLayout(0));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Blue");
@@ -403,7 +404,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(panBlueScroller1);
 
         panGreenScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panGreenScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panGreenScroller1.setLayout(new java.awt.FlowLayout(0));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Green");
@@ -429,7 +430,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(panGreenScroller1);
 
         panRedScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panRedScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panRedScroller1.setLayout(new java.awt.FlowLayout(0));
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel10.setText("Red");

@@ -74,12 +74,12 @@ public class XMLShapeReader {
     private void storeShape(ShapeEvent se) {
         switch (se.getShapeType()) {
             case LINE: // store the line
-                SimpleLine sl = new SimpleLine(se.getXStart(), se.getYStart(), se.getYStart(), se.getYEnd(), se.getColour(), se.getThickness(), ShapeType.LINE);
-                slList.add(sl);
+              // SimpleLine sl = new SimpleLine(currentPoints, currentColor, currentThickness, ShapeType.LINE);
+              //  slList.add(sl);
                 break;
             case OVAL: // store the oval
-                SimpleOval ol = new SimpleOval(se.getXStart(), se.getYStart(), se.getYStart(), se.getYEnd(), se.getColour(), se.getThickness(), ShapeType.OVAL);
-                olList.add(ol);
+              //  SimpleOval ol = new SimpleOval(se.getXStart(), se.getYStart(), se.getYStart(), se.getYEnd(), se.getColour(), se.getThickness(), ShapeType.OVAL);
+             //   olList.add(ol);
                 break;
         }
     }
