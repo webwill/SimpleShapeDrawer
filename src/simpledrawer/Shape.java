@@ -8,12 +8,12 @@ package simpledrawer;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
-
+import java.awt.Graphics2D;
 /**
  *
  * @author willi
  */
-public class Shape {
+public class Shape{
     
     protected List<Point> vertices; // points that define the triangle
     // Shape characteristics
@@ -61,4 +61,19 @@ public class Shape {
     public void setShapeType(ShapeType shapeType) {
         this.shapeType = shapeType;
     }
+     public void drawShape(Graphics2D g2d, float currentBrightness){
+        Color c = scaleColour(vertices.getColour(), currentBrightness);
+        g2d.setColor(c);
+        // set the thickness of the line
+        g2d.setStroke(new BasicStroke(thickness));
+        
+        
+        for(int i = 0; i <  vertices.getVertices().size(); i++){
+           if(i == vertices.getVertices().size()-1){
+            g2d.drawLine(vertices.getVertices().get(i).x, vertices.getVertices().get(i).y, vertices.getVertices().get(0).x, vertices.getVertices().get(0).y);
+           }else{
+                g2d.drawLine(vertices.getVertices().get(i).x, vertices.getVertices().get(i).y, vertices.getVertices().get(i+1).x, vertices.getVertices().get(i+1).y);
+           }
+       }
+     }
 }

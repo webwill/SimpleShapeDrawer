@@ -12,7 +12,8 @@ import java.awt.Graphics2D;
  *
  * @author willi
  */
-public interface Drawer {
-     public void drawShape(Graphics2D g2d, float currentBrightness);
-     public Color scaleColour(Color c, float currentBrightness);
+public class Drawer {
+    
+     public Color scaleColour(Color c, float currentBrightness){
+     }
 }

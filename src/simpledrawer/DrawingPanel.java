@@ -38,7 +38,7 @@ public class DrawingPanel extends JPanel {
     private int x, y;
 
     // A List that stores the shapes that appear on the JPanel
-    private List shapes;  // using a raw type - dangerous !!
+    private List<Shape> shapes;  // using a raw type - dangerous !!
 
     /* Default constructor.  Sets default values for line colour, thickness 
      * and shape type.
@@ -62,7 +62,7 @@ public class DrawingPanel extends JPanel {
         currentBrightness = 1;
 
         // instantiate the ArrayList to store shapes
-        shapes = new ArrayList<>();
+        shapes = new ArrayList<Shape>();
     }
 
     public int getCanvasWidth() {
@@ -92,16 +92,8 @@ public class DrawingPanel extends JPanel {
 
         // Loop though the ArrayList drawing
         // all the shapes stored in it
-        for (Object aShape : shapes) {
-
-            // draw the correct sort of shape: line or oval or triangle
-            if (aShape instanceof SimpleOval) {
-                OvalDrawer od = new OvalDrawer((SimpleOval) aShape);
-                od.drawShape(g2d, currentBrightness);
-            } else {
-                ShapeDrawer drawer = new ShapeDrawer((Shape) aShape);
-                drawer.drawShape(g2d, currentBrightness);
-            }
+        for (Shape Shape : shapes) {
+             Shape.drawShape(g2d , currentBrightness);
         }
 
         g2d.setStroke(s);  // restore saved stroke
