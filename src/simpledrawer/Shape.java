@@ -62,6 +62,7 @@ public class Shape{
     public void setShapeType(ShapeType shapeType) {
         this.shapeType = shapeType;
     }
+        
      public void drawShape(Graphics2D g2d, float currentBrightness){
         Color c = scaleColour(colour,currentBrightness);
         System.out.println("This is been called in the superclass");
@@ -69,11 +70,12 @@ public class Shape{
         // set the thickness of the line
         g2d.setStroke(new BasicStroke(thickness));
         
+        
         for(int i = 0; i <  vertices.size(); i++){
            if(i == vertices.size()-1){
             g2d.drawLine(vertices.get(i).x, vertices.get(i).y, vertices.get(0).x, vertices.get(0).y);
            }else{
-                g2d.drawLine(vertices.get(i).x, vertices.get(i).y, vertices.get(i+1).x, vertices.get(i+1).y);
+            g2d.drawLine(vertices.get(i).x, vertices.get(i).y, vertices.get(i+1).x, vertices.get(i+1).y);
            }
        }
      }

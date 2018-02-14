@@ -31,7 +31,7 @@ public class DrawingPanel extends JPanel {
     private float currentBrightness;
     private int currentRotation;
     private static int canvasWidth;
-
+    private Graphics2D g2d;
     private List<Point> currentPoints; // x and y points for shape being drawn
 
     // position of the latest click
@@ -81,13 +81,12 @@ public class DrawingPanel extends JPanel {
         super.paintComponent(g);
 
         // Graphics2D needed to set line thickness
-        Graphics2D g2d = (Graphics2D) g;
+        g2d = (Graphics2D) g;
 
         Stroke s = g2d.getStroke(); // save stroke to restore later
 
         // rotate the drawing by the current rotation amount
-        double rotateTheta;
-        rotateTheta = currentRotation * Math.PI / 180;
+        double rotateTheta = currentRotation * Math.PI / 180;
         g2d.rotate(rotateTheta, this.getWidth() / 2, this.getHeight() / 2);
 
         // Loop though the ArrayList drawing
@@ -98,16 +97,19 @@ public class DrawingPanel extends JPanel {
 
         g2d.setStroke(s);  // restore saved stroke
 
-        if (currentPoints != null && currentPoints.size() >= 1) { // draw dot where line started
-            g2d.setColor(currentColor);
+        getDot();
+    }
 
+    public void getDot(){
+       if (currentPoints != null && currentPoints.size() >= 1) { // draw dot where line started
+            g2d.setColor(currentColor);
             for (int i = 0; i < currentPoints.size(); i++) {
                 g2d.fillOval(currentPoints.get(i).x, currentPoints.get(i).y, 5, 5);
             }
-
-        }
+       }
+        
     }
-
+    
     /**
      * @return the currentShapeType
      */
@@ -150,32 +152,28 @@ public class DrawingPanel extends JPanel {
             currentRotation = 0;
 
             if (currentPoints == null) { // must be starting a new shape
+                
                 currentPoints = new ArrayList<>();
-                Point firstPoint = new Point();
-                firstPoint.x = e.getX();
-                firstPoint.y = e.getY();
-                currentPoints.add(firstPoint);
+                currentPoints.add(new Point(e.getX(),e.getY()));
+                
             } else { // shape must have already been started
                 // decide what to do based on the current shape
                 switch (currentShapeType) {
                     case LINE: // Draw the line 
                         currentPoints.add(new Point(e.getX(), e.getY()));
-                        SimpleLine sl = new SimpleLine(currentPoints, currentColor, currentThickness, ShapeType.LINE);
-                        shapes.add(sl);
+                        shapes.add(new SimpleLine(currentPoints, currentColor, currentThickness, ShapeType.LINE));
                         currentPoints = null;
                         break;
                     case OVAL: // Draw the oval
                         currentPoints.add(new Point(e.getX(), e.getY()));
-                        SimpleOval so = new SimpleOval(currentPoints, currentColor, currentThickness, ShapeType.OVAL);
-                        shapes.add(so);
+                        shapes.add(new SimpleOval(currentPoints, currentColor, currentThickness, ShapeType.OVAL));
                         currentPoints = null;
                         break;
                     case TRIANGLE: // May or may not have finished the triangle
                         currentPoints.add(new Point(e.getX(), e.getY()));
                         //This is not where the dots are been created
                         if (currentPoints.size() == 3) { // 3 points so must be complete triangle
-                            SimpleTriangle st = new SimpleTriangle(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE);
-                            shapes.add(st);
+                            shapes.add(new SimpleTriangle(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE));
                             currentPoints = null;
                             break;
                         }
