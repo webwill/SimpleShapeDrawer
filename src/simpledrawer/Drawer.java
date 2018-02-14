@@ -14,6 +14,4 @@ import java.awt.Graphics2D;
  */
 public class Drawer {
     
-     public Color scaleColour(Color c, float currentBrightness){
-     }
 }
