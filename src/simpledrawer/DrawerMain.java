@@ -17,6 +17,7 @@
  */
 package simpledrawer;
 
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -115,7 +116,6 @@ public class DrawerMain extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simple Draw");
         setPreferredSize(new java.awt.Dimension(570, 550));
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         panControls.setPreferredSize(new java.awt.Dimension(270, 300));
         panControls.setLayout(new java.awt.BorderLayout());
@@ -124,7 +124,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.setLayout(new java.awt.GridLayout(4, 0));
 
         panRedScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panRedScroller.setLayout(new java.awt.FlowLayout(0));
+        panRedScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Red");
@@ -150,7 +150,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.add(panRedScroller);
 
         panGreenScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panGreenScroller.setLayout(new java.awt.FlowLayout(0));
+        panGreenScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Green");
@@ -176,7 +176,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.add(panGreenScroller);
 
         panBlueScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panBlueScroller.setLayout(new java.awt.FlowLayout(0));
+        panBlueScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Blue");
@@ -276,7 +276,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         panMoreControls.add(panShape);
 
-        panThickness.setLayout(new java.awt.FlowLayout(0));
+        panThickness.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel1.setText("Thickness");
         panThickness.add(jLabel1);
@@ -306,7 +306,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         panMoreControls.add(panThickness);
 
-        panRotate.setLayout(new java.awt.FlowLayout(0));
+        panRotate.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel2.setText("Rotate");
         panRotate.add(jLabel2);
@@ -378,7 +378,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(jLabel7);
 
         panBlueScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panBlueScroller1.setLayout(new java.awt.FlowLayout(0));
+        panBlueScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Blue");
@@ -404,7 +404,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(panBlueScroller1);
 
         panGreenScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panGreenScroller1.setLayout(new java.awt.FlowLayout(0));
+        panGreenScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Green");
@@ -430,7 +430,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(panGreenScroller1);
 
         panRedScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panRedScroller1.setLayout(new java.awt.FlowLayout(0));
+        panRedScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel10.setText("Red");
@@ -617,26 +617,28 @@ public class DrawerMain extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_setColourBackgroundScroller
-
+    private String currentInput = "";
     private void handleThickness(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_handleThickness
         // TODO add your handling code here:
         int thickness = 5;
-        
-        if(txtThickness.getText().equals("")){
-            
+        String input =  txtThickness.getText();
+        if(KeyEvent.VK_9 >= evt.getKeyCode() && !( txtThickness.getText().isEmpty())){
+            thickness = Integer.parseInt(input.trim());
+       thickness = (thickness > 0 && thickness < 41 )? thickness : 5;
+       System.out.println("This is the if statement");
+       drawingPanel.setCurrentThickness(thickness);
         }else{
-        try{
-          thickness = Integer.parseInt(txtThickness.getText());
-        }catch(Exception e){
-           
-           JOptionPane.showMessageDialog(null, "Please Enter a value between 1 and 40");
-           txtThickness.setText("1");
+            if(!(txtThickness.getText().isEmpty())){
+            int result = JOptionPane.showConfirmDialog( null, "You need to number between 1 and 40","alert", JOptionPane.OK_CANCEL_OPTION);
+            }
+            String temp = input.replace(evt.getKeyChar(), ' ');
+            temp.trim();
+            txtThickness.setText(temp);
         }
-        }
+        
         /* only allow thicknesses in the range 1 to 40 */
 
-       thickness = (thickness < 1 || thickness > 40 )? 5 : thickness;
-       drawingPanel.setCurrentThickness(thickness);
+       
       
     }//GEN-LAST:event_handleThickness
 

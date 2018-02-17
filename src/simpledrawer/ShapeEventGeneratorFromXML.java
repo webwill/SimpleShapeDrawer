@@ -217,7 +217,7 @@ public class ShapeEventGeneratorFromXML extends DefaultHandler {
             if (listeners != null) {
                 // loop through the listeners passing the event object to them - this is "firing" the event
                 for (ShapeEventListener sel : listeners) {
-                    sel.processShapeEvent(this, currentShape);
+//                    sel.processShapeEvent(this, currentShape);
                 }
             }
             currentShape = null;
@@ -302,7 +302,7 @@ public class ShapeEventGeneratorFromXML extends DefaultHandler {
         // Create an instance of DashboardEventGeneratorFromXML and test it
         ShapeEventGeneratorFromXML me = new ShapeEventGeneratorFromXML();
         ShapeEventListener sel = new ShapeEventListener() {
-            @Override
+            
             public void processShapeEvent(Object originator, ShapeEvent se) {
                 System.out.println("***** " + se);
             }

@@ -43,7 +43,7 @@ public class XMLShapeReader {
              * @param se the shape event object containing details of the shape
              * that has just been read from file.
              */
-            @Override
+           
             public void processShapeEvent(Object originator, ShapeEvent se) {
                 storeShape(se);
             }
