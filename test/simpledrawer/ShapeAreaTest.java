@@ -53,6 +53,7 @@ public class ShapeAreaTest {
 
     public class ShapeAreaImpl implements ShapeArea {
 
+        @Override
         public double getArea() {
             return 0.0;
         }

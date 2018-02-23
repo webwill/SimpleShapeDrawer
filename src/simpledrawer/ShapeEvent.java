@@ -10,13 +10,15 @@ package simpledrawer;
 
 import java.awt.*;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class ShapeEvent {
 
     // Shape start location
-    private int xStart, yStart;
-    // Shape end location
-    private int xEnd, yEnd;
+    
+    ArrayList<Point> vertices;
+    
+    
     // Shape characteristics
     private Color colour;
     private int thickness;
@@ -25,11 +27,14 @@ public class ShapeEvent {
 
     private String eventType; // currently always SHAPE
 
-    public ShapeEvent(int xs, int ys, int xe, int ye, Color c, int t, ShapeType st, String eType) {
-        xStart = xs;
-        yStart = ys;
-        xEnd = xe;
-        yEnd = ye;
+    
+    public ShapeEvent(ArrayList<Point> v, Color c, int t, ShapeType st, String eType) {
+        vertices = new ArrayList<>();
+        
+        for(Point p: v){
+        vertices.add(new Point(p.x,p.y));
+        }
+   
         colour = c;
         thickness = t;
         shapeType = st;
@@ -39,40 +44,10 @@ public class ShapeEvent {
     /** 
      * Default constructor will create a default shape
      */
-    public ShapeEvent() {
-        this(0, 0, 0, 0, Color.BLACK, 0, ShapeType.LINE, "SHAPE");
-    }
+    
 
-    public int getXStart() {
-        return xStart;
-    }
-
-    public void setXStart(int xStart) {
-        this.xStart = xStart;
-    }
-
-    public int getYStart() {
-        return yStart;
-    }
-
-    public void setYStart(int yStart) {
-        this.yStart = yStart;
-    }
-
-    public int getXEnd() {
-        return xEnd;
-    }
-
-    public void setXEnd(int xEnd) {
-        this.xEnd = xEnd;
-    }
-
-    public int getYEnd() {
-        return yEnd;
-    }
-
-    public void setYEnd(int yEnd) {
-        this.yEnd = yEnd;
+    public ArrayList getVertices(){
+          return vertices;
     }
 
     public Color getColour() {
@@ -129,7 +104,9 @@ public class ShapeEvent {
 
     @Override
     public String toString() {
-        return "ShapeEvent{" + "xStart=" + xStart + ", yStart=" + yStart + ", xEnd=" + xEnd + ", yEnd=" + yEnd + ", colour=" + colour + ", thickness=" + thickness + ", shapeType=" + shapeType + ", eventType=" + eventType + '}';
+        
+        //return "ShapeEvent{" + "xStart=" + xStart + ", yStart=" + yStart + ", xEnd=" + xEnd + ", yEnd=" + yEnd + ", colour=" + colour + ", thickness=" + thickness + ", shapeType=" + shapeType + ", eventType=" + eventType + '}';
+       return null;
     }
     
 }

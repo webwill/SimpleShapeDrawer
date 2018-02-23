@@ -24,6 +24,7 @@ public class SimpleOval extends Shape implements ShapeArea{
         this.colour = c;
         this.t = t;
     }
+    @Override
     public double getArea() {
         int line1 = vertices.get(1).x- vertices.get(0).x;
         int line2 = vertices.get(1).y - vertices.get(0).x;

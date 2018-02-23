@@ -19,6 +19,8 @@ package simpledrawer;
 
 import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -33,8 +35,7 @@ import org.xml.sax.SAXException;
 public class DrawerMain extends javax.swing.JFrame {
 
     private DrawingPanel drawingPanel; // the drawing panel
-    int timeCountdown = 30;
-
+    
     /**
      * Initialise the components in the screen and then cast a reference to the
      * panel that will be drawn on so it can be used elsewhere.
@@ -79,6 +80,7 @@ public class DrawerMain extends javax.swing.JFrame {
         radOval = new javax.swing.JRadioButton();
         radTriangle = new javax.swing.JRadioButton();
         radRectangle = new javax.swing.JRadioButton();
+        newShape = new javax.swing.JRadioButton();
         panThickness = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         scrBackgroundRedScroller1 = new javax.swing.JScrollBar();
@@ -115,7 +117,9 @@ public class DrawerMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simple Draw");
-        setPreferredSize(new java.awt.Dimension(570, 550));
+        setMinimumSize(new java.awt.Dimension(1049, 739));
+        setPreferredSize(new java.awt.Dimension(570, 750));
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         panControls.setPreferredSize(new java.awt.Dimension(270, 300));
         panControls.setLayout(new java.awt.BorderLayout());
@@ -124,7 +128,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.setLayout(new java.awt.GridLayout(4, 0));
 
         panRedScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panRedScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panRedScroller.setLayout(new java.awt.FlowLayout(0));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Red");
@@ -150,7 +154,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.add(panRedScroller);
 
         panGreenScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panGreenScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panGreenScroller.setLayout(new java.awt.FlowLayout(0));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Green");
@@ -176,7 +180,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.add(panGreenScroller);
 
         panBlueScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panBlueScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panBlueScroller.setLayout(new java.awt.FlowLayout(0));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Blue");
@@ -274,9 +278,18 @@ public class DrawerMain extends javax.swing.JFrame {
         });
         panShape.add(radRectangle);
 
+        grpShape.add(newShape);
+        newShape.setText("New Shape");
+        newShape.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radShapeActionPerformed(evt);
+            }
+        });
+        panShape.add(newShape);
+
         panMoreControls.add(panShape);
 
-        panThickness.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panThickness.setLayout(new java.awt.FlowLayout(0));
 
         jLabel1.setText("Thickness");
         panThickness.add(jLabel1);
@@ -306,7 +319,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         panMoreControls.add(panThickness);
 
-        panRotate.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panRotate.setLayout(new java.awt.FlowLayout(0));
 
         jLabel2.setText("Rotate");
         panRotate.add(jLabel2);
@@ -378,7 +391,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(jLabel7);
 
         panBlueScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panBlueScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panBlueScroller1.setLayout(new java.awt.FlowLayout(0));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Blue");
@@ -404,7 +417,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(panBlueScroller1);
 
         panGreenScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panGreenScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panGreenScroller1.setLayout(new java.awt.FlowLayout(0));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Green");
@@ -430,7 +443,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(panGreenScroller1);
 
         panRedScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panRedScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        panRedScroller1.setLayout(new java.awt.FlowLayout(0));
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel10.setText("Red");
@@ -507,9 +520,9 @@ public class DrawerMain extends javax.swing.JFrame {
     /* set the drawing colours */
     private void scrColourAdjustmentHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_scrColourAdjustmentHandler
         int currentRed, currentGreen, currentBlue;
-        currentRed = scrRed.getValue();
-        currentGreen = scrGreen.getValue();
-        currentBlue = scrBlue.getValue();
+        currentRed = (255 - scrRed.getValue());
+        currentGreen = (255 - scrGreen.getValue());
+        currentBlue = (255 - scrBlue.getValue());
         txtRed.setText(currentRed + "");
         txtGreen.setText(currentGreen + "");
         txtBlue.setText(currentBlue + "");
@@ -535,7 +548,21 @@ public class DrawerMain extends javax.swing.JFrame {
         if(radRectangle.isSelected()){
                 drawingPanel.setCurrentShapeType(ShapeType.RECTANGLE);
                 System.out.println("This is being checked");
-                return;
+                return ;
+        }if(newShape.isSelected()){
+            String tempInput = JOptionPane.showInputDialog("Enter how many sildes for the shape");
+            System.out.println(tempInput);
+            if(!(tempInput == null)){
+            
+            int input = Integer.parseInt(tempInput);
+            
+             drawingPanel.setShapeSildes(input);
+             drawingPanel.setCurrentShapeType(ShapeType.NEWSHAPE);
+             
+             getCanvasWidth();
+            }else{
+                radLine.setSelected(true);
+            }
         }
     }//GEN-LAST:event_radShapeActionPerformed
 
@@ -573,7 +600,9 @@ public class DrawerMain extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnLoadJSONActionPerformed
-
+    
+    
+    
     private void scrBrightnessAdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_scrBrightnessAdjustmentValueChanged
         float currentBrightness = scrBrightness.getValue();
         int colourValue = (int) (255 * ((100 - currentBrightness) / 100));
@@ -609,15 +638,20 @@ public class DrawerMain extends javax.swing.JFrame {
         
           
       
-        drawingPanel.setBackground(new Color(scrBackgroundRedScroller.getValue(),
-                scrBackgroundGreenScroller.getValue() ,scrBackgroundBlueScroller.getValue()));
-        txtBackgroundRed.setText("" + scrBackgroundRedScroller.getValue());
-        txtBackgroundGreen.setText(""+ scrBackgroundGreenScroller.getValue());
-        txtBackgroundBlue.setText(""+ scrBackgroundBlueScroller.getValue());
+        drawingPanel.setBackground(new Color(255 - scrBackgroundRedScroller.getValue(),
+                255- scrBackgroundGreenScroller.getValue() ,255 - scrBackgroundBlueScroller.getValue()));
+        txtBackgroundRed.setText("" + (255 - scrBackgroundRedScroller.getValue()));
+        txtBackgroundGreen.setText(""+ (255 - scrBackgroundGreenScroller.getValue()));
+        txtBackgroundBlue.setText(""+ (255 - scrBackgroundBlueScroller.getValue()));
         
         
     }//GEN-LAST:event_setColourBackgroundScroller
     private String currentInput = "";
+    
+    public Dimension getCanvasWidth(){
+       return panDrawingArea.getPreferredSize();
+    }
+    
     private void handleThickness(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_handleThickness
         // TODO add your handling code here:
         int thickness = 5;
@@ -651,30 +685,18 @@ public class DrawerMain extends javax.swing.JFrame {
     Timer timer = new Timer();
     final String timeFormat = "Time: 00:00:";
     
-   
-    
-       TimerTask timeTask = new TimerTask() {
-        @Override
-        public void run() {
-            --timeCountdown;
-            TimeLabel.setText(timeFormat+timeCountdown);
-            if (timeCountdown == 0){
-                
-               //verificationRectangle();
-                
-                timer.cancel();
-                timeCountdown = 30;
-                TimeLabel.setText(timeFormat+timeCountdown);
-            }
-        }
-    };
-       int answer = JOptionPane.showConfirmDialog(null, "you have 30 secounds to draw a rectangle");
-           
-       if(answer == JOptionPane.YES_OPTION){
-           timer.scheduleAtFixedRate(timeTask, 1000, 1000);
-           drawingPanel.clearDisplay();
-       }
+    //int userInput = JOptionPane.showConfirmDialog(Component null,, JOptionPane.OK_CANCEL_OPTION);
         
+       int result = JOptionPane.showConfirmDialog((Component) null, "You have 30 secounds to change a square into a " + "8" + " shape",
+        "Get Ready", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            System.out.println("This is true");
+            
+            //prep the canvas
+            drawingPanel.clearDisplay();
+            drawingPanel.setCurrentShapeType(ShapeType.NOSHAPE);
+            drawingPanel.drawRect();
+        }
     }//GEN-LAST:event_startTimerButtonMousePressed
 
   
@@ -683,7 +705,11 @@ public class DrawerMain extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
 
-        new DrawerMain().setVisible(true);
+      DrawerMain dm = new  DrawerMain();
+              dm.setVisible(true);
+                dm.setResizable(false);
+        
+        
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -708,6 +734,7 @@ public class DrawerMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labBrightness;
+    private javax.swing.JRadioButton newShape;
     private javax.swing.JPanel panBlueScroller;
     private javax.swing.JPanel panBlueScroller1;
     private javax.swing.JPanel panBrightness;

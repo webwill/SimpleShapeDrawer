@@ -9,6 +9,7 @@
  */
 package simpledrawer;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,9 +18,15 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.shape.Line;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class DrawingPanel extends JPanel {
@@ -34,8 +41,17 @@ public class DrawingPanel extends JPanel {
     private Graphics2D g2d;
     private List<Point> currentPoints; // x and y points for shape being drawn
 
+    private boolean gameIsRunning = false;
+    
+    ArrayList<ShapeLine> rectLine = new ArrayList<ShapeLine>();
+    
     // position of the latest click
     private int x, y;
+    
+    //Get amount of slides the user wants for their shape;
+   
+    private int shapeSildes;
+
 
     // A List that stores the shapes that appear on the JPanel
     private List<Shape> shapes;  // using a raw type - dangerous !!
@@ -52,6 +68,7 @@ public class DrawingPanel extends JPanel {
      */
     public DrawingPanel(Color c, int t, ShapeType st) {
         this.addMouseListener(new MouseWatcher());
+        this.addMouseMotionListener(new MouseDrag());
         this.setBorder(BorderFactory.createLoweredBevelBorder());
         x = -1;
         y = -1;
@@ -94,19 +111,90 @@ public class DrawingPanel extends JPanel {
         for (Shape Shape : shapes) {
              Shape.drawShape(g2d , currentBrightness);
         }
-
+          
         g2d.setStroke(s);  // restore saved stroke
 
-        getDot();
+        
+        if(gameIsRunning){
+       
+        g2d.setStroke(new BasicStroke(currentThickness));
+        
+    
+        
+        g2d.drawLine(rectLine.get(0).getStartX(),rectLine.get(0).getStartY() , rectLine.get(0).getEndX(), rectLine.get(0).getEndY());
+        g2d.drawLine(rectLine.get(0).getEndX(),rectLine.get(0).getEndY() , rectLine.get(1).getEndX(), rectLine.get(1).getEndY());
+        g2d.drawLine(rectLine.get(1).getEndX(),rectLine.get(1).getEndY() , rectLine.get(2).getEndX(), rectLine.get(2).getEndY());
+        g2d.drawLine(rectLine.get(3).getStartX(),rectLine.get(3).getStartY() , rectLine.get(0).getStartX(), rectLine.get(0).getStartY());
+        
+
+        }else{
+            getDot();
+        }
     }
 
+    public void setShapeSildes(int input){
+        shapeSildes = input;
+    }
+    
+    public void drawRect(){
+       
+        int canvasX, canvasY;
+         
+        DrawerMain dm = new DrawerMain();
+         
+        canvasX = dm.getCanvasWidth().width/4;
+        canvasY = dm.getCanvasWidth().height/4;
+        
+        System.out.println("X:"+canvasX);
+        System.out.println("X/4:"+canvasX/4);
+        System.out.println("Y:"+canvasY);
+        System.out.println("Y/4:"+canvasY/4);
+        
+        ShapeLine silde1,silde2,silde3,silde4;
+         
+        silde1 = new ShapeLine(new Point(canvasX,canvasY), new Point(canvasX*3,canvasY));
+        silde2 = new ShapeLine(new Point(canvasX*3,canvasY), new Point(canvasX*3,canvasY*3));
+        silde3 = new ShapeLine(new Point(canvasX*3,canvasY*2), new Point(canvasX,canvasY*3));
+        silde4 = new ShapeLine(new Point(canvasX,canvasY*3), new Point(canvasX,canvasY));
+        
+        rectLine.add(silde1);
+        rectLine.add(silde2);
+        rectLine.add(silde3);
+        rectLine.add(silde4);
+        
+         drawLine(canvasX, canvasY,canvasX*3,canvasY);
+         drawLine(canvasX*3, canvasY,canvasX*3,canvasY*3);
+         
+         
+         
+         gameIsRunning = true;
+         repaint();
+         
+         
+    }
+    
     public void getDot(){
        if (currentPoints != null && currentPoints.size() >= 1) { // draw dot where line started
             g2d.setColor(currentColor);
             for (int i = 0; i < currentPoints.size(); i++) {
                 g2d.fillOval(currentPoints.get(i).x, currentPoints.get(i).y, 5, 5);
             }
+            
        }
+        
+    }
+    public void drawLine(int startX, int startY, int endX, int endY){
+            
+            
+            System.out.println("Called the line");
+           
+           
+            
+    }
+    public void drawDot(){
+       
+        g2d.setColor(Color.BLACK);
+        g2d.fillOval(x,y, 5, 5);
         
     }
     
@@ -141,7 +229,38 @@ public class DrawingPanel extends JPanel {
         this.currentBrightness = (currentBrightness / 2) + 0.75F;
         repaint();
     }
+    public int getSildes(){
+        return shapeSildes;
+    }
+    
+    public void rectIsSelected(Point p){
+        for(ShapeLine line: rectLine){
+            if(line.getSelectableBound(p)){
+                    //make all adjuctment
+            }        
+        
+        }
+    }
 
+    private class MouseDrag implements MouseMotionListener {
+
+        
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            System.out.println("X:" + e.getX() + " Y" + e.getY() );
+            rectIsSelected(new Point(e.getX(), e.getY()));
+            
+        }
+        
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+         //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    }
+
+    
     /* MouseWatcher is an inner class used to handle the
      * mouse events generated by the user clicking on the drawing panel
      */
@@ -182,7 +301,6 @@ public class DrawingPanel extends JPanel {
                         //Need to get store the fourth point to create a rectangle
 
                         SimpleRectangle test = new SimpleRectangle();
-
                         if (currentPoints.size()  > 1 && test.checkSamePoint(currentPoints)) {
                               currentPoints.add(new Point(e.getX(), e.getY()));
                               
@@ -193,17 +311,39 @@ public class DrawingPanel extends JPanel {
                         }
                         
                         if (currentPoints.size() == 4) {
-
                             SimpleRectangle st = new SimpleRectangle(currentPoints, currentColor, currentThickness, ShapeType.RECTANGLE);
                             shapes.add(st);
                             currentPoints = null;
                             break;
                         }
+                    case NEWSHAPE:
+                        
+                        currentPoints.add(new Point(e.getX(), e.getY()));
+                        //This is not where the dots are been created
+                        if (currentPoints.size() == getSildes()) { // 3 points so must be complete triangle
+                            shapes.add(new SimpleTriangle(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE));
+                            currentPoints = null;
+                            break;
+                        }
                         break;
+                    case NOSHAPE:
+                        
+                        
+                        break;
+                       
                 }
             }
             repaint(); // causes paintComponent() to be called
         }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            super.mouseMoved(e); //To change body of generated methods, choose Tools | Templates.
+            System.out.println("This is the ");
+        }
+
+        
+        
     }
 
     public void setCurrentThickness(int currentThickness) {

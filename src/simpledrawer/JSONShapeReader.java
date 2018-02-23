@@ -12,6 +12,7 @@ package simpledrawer;
 
 import com.google.gson.*;
 import java.awt.Color;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -31,6 +32,7 @@ public class JSONShapeReader {
 
     private ListOfShapeEvents los; // list of all the shapes
     private List<SimpleLine> slList; // list of lines
+    private List<SimpleTriangle> triangleList; // list of lines
     private List<SimpleOval> olList; // list of ovals
 
     private Gson gson; // gson object used to "parse" the JSON
@@ -39,6 +41,8 @@ public class JSONShapeReader {
         gson = new Gson();
         slList = new ArrayList<>();
         olList = new ArrayList<>();
+        triangleList = new ArrayList<>();
+        
     }
 
     /**
@@ -50,8 +54,7 @@ public class JSONShapeReader {
      * @throws FileNotFoundException
      */
     public void getShapesFromFile(String file) throws FileNotFoundException {
-        BufferedReader br = new BufferedReader(
-                new FileReader(file));
+        BufferedReader br = new BufferedReader(new FileReader(file));
         los = gson.fromJson(br, ListOfShapeEvents.class); // load the shapes
         storeShapes(); // store in separate lists according to type
     }
@@ -73,6 +76,10 @@ public class JSONShapeReader {
                    // SimpleOval ol = new SimpleOval(se.getXStart(), se.getYStart(), se.getYStart(), se.getYEnd(), se.getColour(), se.getThickness(), ShapeType.OVAL);
                   //  olList.add(ol);
                     break;
+                case TRIANGLE:
+                    SimpleTriangle st = new SimpleTriangle(se.getVertices(), Color.BLACK, 0, ShapeType.TRIANGLE);
+                    triangleList.add(st);
+                    break;
             }
         }
     }
@@ -81,8 +88,8 @@ public class JSONShapeReader {
      *
      * @return the list of line shapes
      */
-    public List<SimpleLine> getSlList() {
-        return slList;
+    public List<SimpleTriangle> getSlList() {
+        return triangleList;
     }
 
     /**
@@ -102,9 +109,14 @@ public class JSONShapeReader {
     private static void generateTestJSON(String file) {
         List<ShapeEvent> list = new ArrayList<>();
         // load in some hard-coded shapes
-        list.add(new ShapeEvent(20, 40, 30, 90, Color.red, 5, ShapeType.LINE, "SHAPE"));
-        list.add(new ShapeEvent(20, 40, 70, 90, Color.blue, 5, ShapeType.OVAL, "SHAPE"));
-        list.add(new ShapeEvent(80, 95, 70, 45, Color.green, 5, ShapeType.LINE, "SHAPE"));
+        
+        ArrayList<Point> al = new ArrayList<>();
+        al.add(new Point(40,80));
+        al.add(new Point(570,160));
+        al.add(new Point(270,60));
+        
+        list.add(new ShapeEvent(al, Color.BLACK, 5, ShapeType.TRIANGLE, "SHAPE"));
+
         ListOfShapeEvents los = new ListOfShapeEvents();
         los.listOfShapeEvents = list;
         Gson gson = new Gson();
@@ -127,7 +139,7 @@ public class JSONShapeReader {
      */
     public static void main(String[] args) throws FileNotFoundException {
 
-//        generateTestJSON("stored_shapes.json"); // uncomment if you wish to 
+        generateTestJSON("stored_shapes.json"); // uncomment if you wish to 
         // create a file of JSON
         
         // Read the JSON from file and output number of lines and number
