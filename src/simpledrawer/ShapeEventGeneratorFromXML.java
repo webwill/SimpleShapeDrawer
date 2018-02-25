@@ -132,7 +132,7 @@ public class ShapeEventGeneratorFromXML extends DefaultHandler {
 
         switch (currentTag) {
             case SHAPE_TAG:
-                currentShape = new ShapeEvent(); // starting a new shape so create object
+                //currentShape = new ShapeEvent(); // starting a new shape so create object
                 currentShape.setEventType("SHAPE");
                 break;
             case START_TAG:
@@ -167,12 +167,12 @@ public class ShapeEventGeneratorFromXML extends DefaultHandler {
         }
 
         // process the characters based on what type of tag we are currently dealing with.
-        switch (currentTag) {
+        /*switch (currentTag) {
             case TYPE_TAG:
                 currentShape.setShapeType(ShapeType.valueOf(val.toUpperCase()));
                 break;
             case X_TAG: // an x tag can either be for the start or end 
-                if (processingStartPos) {
+                if (process `ingStartPos) {
                     currentShape.setXStart(Integer.parseInt(val));
                 } else {
                     currentShape.setXEnd(Integer.parseInt(val));
@@ -192,7 +192,7 @@ public class ShapeEventGeneratorFromXML extends DefaultHandler {
                 currentShape.setThickness(Integer.parseInt(val));
                 break;
 
-        }
+        }*/
     }
 
     /**

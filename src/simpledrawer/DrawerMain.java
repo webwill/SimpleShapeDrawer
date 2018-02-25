@@ -23,12 +23,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
@@ -114,12 +118,12 @@ public class DrawerMain extends javax.swing.JFrame {
         TimeLabel = new java.awt.Label();
         startTimerButton = new javax.swing.JButton();
         panDrawingArea = new DrawingPanel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simple Draw");
         setMinimumSize(new java.awt.Dimension(1049, 739));
         setPreferredSize(new java.awt.Dimension(570, 750));
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         panControls.setPreferredSize(new java.awt.Dimension(270, 300));
         panControls.setLayout(new java.awt.BorderLayout());
@@ -128,7 +132,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.setLayout(new java.awt.GridLayout(4, 0));
 
         panRedScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panRedScroller.setLayout(new java.awt.FlowLayout(0));
+        panRedScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Red");
@@ -154,7 +158,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.add(panRedScroller);
 
         panGreenScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panGreenScroller.setLayout(new java.awt.FlowLayout(0));
+        panGreenScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Green");
@@ -180,7 +184,7 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.add(panGreenScroller);
 
         panBlueScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panBlueScroller.setLayout(new java.awt.FlowLayout(0));
+        panBlueScroller.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Blue");
@@ -289,7 +293,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         panMoreControls.add(panShape);
 
-        panThickness.setLayout(new java.awt.FlowLayout(0));
+        panThickness.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel1.setText("Thickness");
         panThickness.add(jLabel1);
@@ -319,7 +323,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         panMoreControls.add(panThickness);
 
-        panRotate.setLayout(new java.awt.FlowLayout(0));
+        panRotate.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel2.setText("Rotate");
         panRotate.add(jLabel2);
@@ -391,7 +395,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(jLabel7);
 
         panBlueScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panBlueScroller1.setLayout(new java.awt.FlowLayout(0));
+        panBlueScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Blue");
@@ -417,7 +421,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(panBlueScroller1);
 
         panGreenScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panGreenScroller1.setLayout(new java.awt.FlowLayout(0));
+        panGreenScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Green");
@@ -443,7 +447,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.add(panGreenScroller1);
 
         panRedScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
-        panRedScroller1.setLayout(new java.awt.FlowLayout(0));
+        panRedScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel10.setText("Red");
@@ -491,6 +495,11 @@ public class DrawerMain extends javax.swing.JFrame {
                 startTimerButtonMousePressed(evt);
             }
         });
+        startTimerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startTimerButtonActionPerformed(evt);
+            }
+        });
         jPanel2.add(startTimerButton);
 
         jPanel1.add(jPanel2);
@@ -503,6 +512,29 @@ public class DrawerMain extends javax.swing.JFrame {
         panDrawingArea.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         panDrawingArea.setFocusCycleRoot(true);
         panDrawingArea.setPreferredSize(new java.awt.Dimension(700, 650));
+
+        jButton2.setText("Change current shape change");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeColourButton(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panDrawingAreaLayout = new javax.swing.GroupLayout(panDrawingArea);
+        panDrawingArea.setLayout(panDrawingAreaLayout);
+        panDrawingAreaLayout.setHorizontalGroup(
+            panDrawingAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panDrawingAreaLayout.createSequentialGroup()
+                .addGap(0, 551, Short.MAX_VALUE)
+                .addComponent(jButton2))
+        );
+        panDrawingAreaLayout.setVerticalGroup(
+            panDrawingAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panDrawingAreaLayout.createSequentialGroup()
+                .addComponent(jButton2)
+                .addGap(0, 739, Short.MAX_VALUE))
+        );
+
         getContentPane().add(panDrawingArea, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -687,7 +719,23 @@ public class DrawerMain extends javax.swing.JFrame {
     
     //int userInput = JOptionPane.showConfirmDialog(Component null,, JOptionPane.OK_CANCEL_OPTION);
         
-       int result = JOptionPane.showConfirmDialog((Component) null, "You have 30 secounds to change a square into a " + "8" + " shape",
+       
+    }//GEN-LAST:event_startTimerButtonMousePressed
+
+    private JScrollBar currentRed, currentGreen, currentBlue;
+    
+    private void changeColourButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeColourButton
+        // TODO add your handling code here:
+            
+        changeCurrentColourDialog();
+        
+        
+    }//GEN-LAST:event_changeColourButton
+
+    private void startTimerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startTimerButtonActionPerformed
+        // TODO add your handling code here:
+        
+        int result = JOptionPane.showConfirmDialog((Component) null, "You have 30 secounds to change a square into a " + "8" + " shape",
         "Get Ready", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             System.out.println("This is true");
@@ -695,11 +743,85 @@ public class DrawerMain extends javax.swing.JFrame {
             //prep the canvas
             drawingPanel.clearDisplay();
             drawingPanel.setCurrentShapeType(ShapeType.NOSHAPE);
-            drawingPanel.drawRect();
+            drawingPanel.startGame();
         }
-    }//GEN-LAST:event_startTimerButtonMousePressed
+        
+    }//GEN-LAST:event_startTimerButtonActionPerformed
 
-  
+    
+    
+     private void changeCurrentColour(java.awt.event.AdjustmentEvent evt) {   
+         
+         int red,green,blue;
+         
+         red = currentRed.getValue();
+         blue = currentBlue.getValue();
+         green = currentGreen.getValue();
+         
+         Color c = new Color(red,green,blue);
+         
+         ChangeCurrentShapeColour changeColour = new ChangeCurrentShapeColour();
+         changeColour.ChangeColour(c);
+     }
+    
+    public void changeCurrentColourDialog(){
+
+        
+        ArrayList<JComponent> uiCom = new ArrayList<JComponent>();
+        
+        currentRed = new JScrollBar();
+        currentGreen = new JScrollBar();
+        currentBlue = new JScrollBar();
+        
+        currentRed.setMaximum(256);
+        currentRed.addAdjustmentListener((e) -> {
+            changeCurrentColour(e);
+        });
+        currentGreen.setMaximum(256);
+        currentGreen.addAdjustmentListener((e) -> {
+            changeCurrentColour(e);
+        });
+        currentBlue.setMaximum(256);
+        currentBlue.addAdjustmentListener((e) -> {
+            changeCurrentColour(e);
+        });
+        
+        currentRed.setOrientation(JScrollBar.HORIZONTAL);
+        currentGreen.setOrientation(JScrollBar.HORIZONTAL);
+        currentBlue.setOrientation(JScrollBar.HORIZONTAL);
+        
+        currentRed.setVisibleAmount(1);
+        currentGreen.setVisibleAmount(1);
+        currentBlue.setVisibleAmount(1);
+        
+        currentRed.setPreferredSize(new  java.awt.Dimension(150, 16));
+        currentGreen.setPreferredSize(new  java.awt.Dimension(150, 16));
+        currentBlue.setPreferredSize(new  java.awt.Dimension(150, 16));
+        
+        uiCom.add(new JLabel("Choose your new colour!"));
+        uiCom.add(new JLabel("Red:"));
+        uiCom.add(currentRed);
+        uiCom.add(new JLabel("Green:"));
+        uiCom.add(currentGreen);
+        uiCom.add(new JLabel("Blue:"));
+        uiCom.add(currentBlue);
+        
+
+
+scrBackgroundGreenScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+    public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
+        setColourBackgroundScroller(evt);
+    }
+});
+
+panGreenScroller1.add(scrBackgroundGreenScroller);
+        int dialog = JOptionPane.showConfirmDialog(null, uiCom.toArray(),"Choose new Colour", JOptionPane.WARNING_MESSAGE);
+            if(dialog == JOptionPane.OK_OPTION){
+
+                
+                
+            }
+    }
     /**
      * @param args the command line arguments
      */
@@ -721,6 +843,7 @@ public class DrawerMain extends javax.swing.JFrame {
     private javax.swing.JButton btnRight;
     private javax.swing.ButtonGroup grpShape;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

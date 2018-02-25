@@ -9,8 +9,10 @@
  */
 package simpledrawer;
 
+
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -40,10 +42,17 @@ public class DrawingPanel extends JPanel {
     private static int canvasWidth;
     private Graphics2D g2d;
     private List<Point> currentPoints; // x and y points for shape being drawn
-
+    
+    private String message = "";
+    
+    int[][] grid;
+    
     private boolean gameIsRunning = false;
     
     ArrayList<ShapeLine> rectLine = new ArrayList<ShapeLine>();
+    ArrayList<ShapeLine> outerRectLine = new ArrayList<ShapeLine>();
+    
+    
     
     // position of the latest click
     private int x, y;
@@ -54,8 +63,8 @@ public class DrawingPanel extends JPanel {
 
 
     // A List that stores the shapes that appear on the JPanel
-    private List<Shape> shapes;  // using a raw type - dangerous !!
-
+    private static List<Shape> shapes;  // using a raw type - dangerous !!
+    private static ArrayList<Shape> currentDrawn= new ArrayList<>();
     /* Default constructor.  Sets default values for line colour, thickness 
      * and shape type.
      */
@@ -72,20 +81,27 @@ public class DrawingPanel extends JPanel {
         this.setBorder(BorderFactory.createLoweredBevelBorder());
         x = -1;
         y = -1;
+        ChangeCurrentShapeColour ccsc = new ChangeCurrentShapeColour();
         currentColor = c;
         currentThickness = t;
         currentShapeType = st;
         currentRotation = 0;
         currentBrightness = 1;
-
+        //mension dm = new DrawerMain().getCanvasWidth();
+        //int[][] martix2D = new int[dm.width][dm.height];
+        //System.out.println(martix2D.length);
         // instantiate the ArrayList to store shapes
-        shapes = new ArrayList<Shape>();
+        shapes = new ArrayList<>();
     }
 
     public int getCanvasWidth() {
         return canvasWidth;
     }
-
+    
+    public void redrawColor(){
+        
+    }
+    
     /*
      * paint the drawing including all shapes drawn so far
      *
@@ -93,6 +109,32 @@ public class DrawingPanel extends JPanel {
      * when the GUI needs redrawing e.g. because it has been covered
      * by another window
      */
+    
+    public List<Shape> getCurrentShape(){
+        System.out.println("The current get from the drawing panel shapes size is " + currentDrawn.size());
+        return currentDrawn;
+        
+    }
+    
+    public void addCurrentShape(Shape s){
+        currentDrawn.add(s);
+        System.out.println("This is the current drawn "+currentDrawn.size());
+    }
+    
+    public void setCurrentShape(List<Shape> shapes){
+        System.out.println("The before " +shapes.size());
+        this.shapes = shapes;
+        this.shapes.clear();
+        System.out.println("The After " +shapes.size());
+        message = "the message is true";
+        
+        
+        
+    }
+    public void repaintCanvas(){
+        System.out.println(message);
+        repaint();
+    }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -109,6 +151,7 @@ public class DrawingPanel extends JPanel {
         // Loop though the ArrayList drawing
         // all the shapes stored in it
         for (Shape Shape : shapes) {
+             System.out.println("This is been called from");
              Shape.drawShape(g2d , currentBrightness);
         }
           
@@ -119,21 +162,31 @@ public class DrawingPanel extends JPanel {
        
         g2d.setStroke(new BasicStroke(currentThickness));
         
-    
-        
         g2d.drawLine(rectLine.get(0).getStartX(),rectLine.get(0).getStartY() , rectLine.get(0).getEndX(), rectLine.get(0).getEndY());
         g2d.drawLine(rectLine.get(0).getEndX(),rectLine.get(0).getEndY() , rectLine.get(1).getEndX(), rectLine.get(1).getEndY());
         g2d.drawLine(rectLine.get(1).getEndX(),rectLine.get(1).getEndY() , rectLine.get(2).getEndX(), rectLine.get(2).getEndY());
         g2d.drawLine(rectLine.get(3).getStartX(),rectLine.get(3).getStartY() , rectLine.get(0).getStartX(), rectLine.get(0).getStartY());
-        
 
+        g2d.drawLine(outerRectLine.get(0).getStartX(),outerRectLine.get(0).getStartY(),outerRectLine.get(0).getEndX(),outerRectLine.get(0).getEndY());
+        g2d.drawLine(outerRectLine.get(0).getEndX(),outerRectLine.get(0).getEndY() , outerRectLine.get(1).getEndX(), outerRectLine.get(1).getEndY());
+        g2d.drawLine(outerRectLine.get(2).getStartX(),outerRectLine.get(2).getStartY() , outerRectLine.get(2).getEndX(), outerRectLine.get(2).getEndY());
+        g2d.drawLine(outerRectLine.get(3).getStartX(),outerRectLine.get(3).getStartY() , outerRectLine.get(3).getEndX(), outerRectLine.get(3).getEndY());
         }else{
             getDot();
         }
     }
 
+    
+    
     public void setShapeSildes(int input){
         shapeSildes = input;
+    }
+    
+    public void startGame(){
+        
+        //Draw the rectangles for the game
+        drawRect();
+        
     }
     
     public void drawRect(){
@@ -143,12 +196,14 @@ public class DrawingPanel extends JPanel {
         DrawerMain dm = new DrawerMain();
          
         canvasX = dm.getCanvasWidth().width/4;
+        int canvasOuterX = dm.getCanvasWidth().width/5;
+        int canvasOuterY = dm.getCanvasWidth().height/5;
         canvasY = dm.getCanvasWidth().height/4;
         
-        System.out.println("X:"+canvasX);
-        System.out.println("X/4:"+canvasX/4);
-        System.out.println("Y:"+canvasY);
-        System.out.println("Y/4:"+canvasY/4);
+        
+        
+        
+       
         
         ShapeLine silde1,silde2,silde3,silde4;
          
@@ -156,6 +211,12 @@ public class DrawingPanel extends JPanel {
         silde2 = new ShapeLine(new Point(canvasX*3,canvasY), new Point(canvasX*3,canvasY*3));
         silde3 = new ShapeLine(new Point(canvasX*3,canvasY*2), new Point(canvasX,canvasY*3));
         silde4 = new ShapeLine(new Point(canvasX,canvasY*3), new Point(canvasX,canvasY));
+        
+        outerRectLine.add(new ShapeLine(new Point(canvasOuterX,canvasOuterY), new Point(canvasOuterX*4,canvasOuterY)));
+        outerRectLine.add(new ShapeLine(new Point(canvasOuterX*4,canvasOuterY), new Point(canvasOuterX*4,canvasOuterY*4)));
+        outerRectLine.add(new ShapeLine(new Point(canvasOuterX*4,canvasOuterY*4), new Point(canvasOuterX,canvasOuterY*4)));
+        outerRectLine.add(new ShapeLine(new Point(canvasOuterX,canvasOuterY*4), new Point(canvasOuterX,canvasOuterY)));
+        
         
         rectLine.add(silde1);
         rectLine.add(silde2);
@@ -172,6 +233,8 @@ public class DrawingPanel extends JPanel {
          
          
     }
+    
+    
     
     public void getDot(){
        if (currentPoints != null && currentPoints.size() >= 1) { // draw dot where line started
@@ -269,7 +332,7 @@ public class DrawingPanel extends JPanel {
         public void mousePressed(MouseEvent e) {
             // reset the rotation to 0 otherwise things get messy.
             currentRotation = 0;
-
+            
             if (currentPoints == null) { // must be starting a new shape
                 
                 currentPoints = new ArrayList<>();
@@ -281,6 +344,9 @@ public class DrawingPanel extends JPanel {
                     case LINE: // Draw the line 
                         currentPoints.add(new Point(e.getX(), e.getY()));
                         shapes.add(new SimpleLine(currentPoints, currentColor, currentThickness, ShapeType.LINE));
+                        addCurrentShape(new Shape(currentPoints, currentColor, currentThickness, currentShapeType));
+                        System.out.println("The shapes size is " + shapes.size());
+                        
                         currentPoints = null;
                         break;
                     case OVAL: // Draw the oval
@@ -357,6 +423,7 @@ public class DrawingPanel extends JPanel {
     public void clearDisplay() {
         // Empty the ArrayList and clear the display.
         shapes.clear();
+        System.out.println("The display is clear is " + shapes.size());
         repaint();
     }
 

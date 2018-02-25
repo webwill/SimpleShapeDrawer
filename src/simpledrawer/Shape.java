@@ -65,7 +65,7 @@ public class Shape{
         
      public void drawShape(Graphics2D g2d, float currentBrightness){
         Color c = scaleColour(colour,currentBrightness);
-        System.out.println("This is been called in the superclass");
+       
         g2d.setColor(c);
         // set the thickness of the line
         g2d.setStroke(new BasicStroke(thickness));
@@ -79,6 +79,7 @@ public class Shape{
            }
        }
      }
+     
      public Color scaleColour(Color c, float currentBrightness) {
         int red = (int) (c.getRed() * currentBrightness);
         // check we've not gone over 255

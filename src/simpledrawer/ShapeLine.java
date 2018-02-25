@@ -23,6 +23,8 @@ public class ShapeLine {
         
     }
     
+    //public void setRectIndex
+    
     public boolean getSelectableBound(Point p){
         
         //get the min and max X axle
