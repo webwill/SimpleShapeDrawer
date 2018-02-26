@@ -102,17 +102,17 @@ public class DrawerMain extends javax.swing.JFrame {
         resetButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         panBlueScroller1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        scrBackgroundBlueScroller = new javax.swing.JScrollBar();
-        txtBackgroundBlue = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        backgroundRedScroller = new javax.swing.JScrollBar();
+        redTextBackground = new javax.swing.JTextField();
         panGreenScroller1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        scrBackgroundGreenScroller = new javax.swing.JScrollBar();
-        txtBackgroundGreen = new javax.swing.JTextField();
+        backgroundGreenScroller = new javax.swing.JScrollBar();
+        greenTextBackground = new javax.swing.JTextField();
         panRedScroller1 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        scrBackgroundRedScroller = new javax.swing.JScrollBar();
-        txtBackgroundRed = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        backgroundBlueScroller = new javax.swing.JScrollBar();
+        blueTextBackground = new javax.swing.JTextField();
         resetBackground = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         TimeLabel = new java.awt.Label();
@@ -123,7 +123,6 @@ public class DrawerMain extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simple Draw");
         setMinimumSize(new java.awt.Dimension(1049, 739));
-        setPreferredSize(new java.awt.Dimension(570, 750));
 
         panControls.setPreferredSize(new java.awt.Dimension(270, 300));
         panControls.setLayout(new java.awt.BorderLayout());
@@ -141,7 +140,8 @@ public class DrawerMain extends javax.swing.JFrame {
 
         scrRed.setMaximum(256);
         scrRed.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
-        scrRed.setVisibleAmount(1);
+        scrRed.setValue(0);
+        scrRed.setVisibleAmount(0);
         scrRed.setPreferredSize(new java.awt.Dimension(150, 16));
         scrRed.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
             public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
@@ -167,6 +167,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         scrGreen.setMaximum(256);
         scrGreen.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
+        scrGreen.setValue(0);
         scrGreen.setVisibleAmount(1);
         scrGreen.setPreferredSize(new java.awt.Dimension(150, 16));
         scrGreen.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
@@ -397,26 +398,30 @@ public class DrawerMain extends javax.swing.JFrame {
         panBlueScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
         panBlueScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabel8.setText("Blue");
-        jLabel8.setPreferredSize(new java.awt.Dimension(35, 14));
-        panBlueScroller1.add(jLabel8);
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel10.setText("Red");
+        jLabel10.setPreferredSize(new java.awt.Dimension(35, 14));
+        panBlueScroller1.add(jLabel10);
 
-        scrBackgroundBlueScroller.setMaximum(256);
-        scrBackgroundBlueScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
-        scrBackgroundBlueScroller.setVisibleAmount(1);
-        scrBackgroundBlueScroller.setPreferredSize(new java.awt.Dimension(150, 16));
-        scrBackgroundBlueScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+        backgroundRedScroller.setBlockIncrement(1);
+        backgroundRedScroller.setForeground(new java.awt.Color(240, 240, 245));
+        backgroundRedScroller.setMaximum(256);
+        backgroundRedScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
+        backgroundRedScroller.setVisibleAmount(1);
+        backgroundRedScroller.setPreferredSize(new java.awt.Dimension(170, 17));
+        backgroundRedScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
             public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
-                setColourBackgroundScroller(evt);
+                backgroundColourHandler(evt);
             }
         });
-        panBlueScroller1.add(scrBackgroundBlueScroller);
+        panBlueScroller1.add(backgroundRedScroller);
+        backgroundRedScroller.getAccessibleContext().setAccessibleParent(null);
 
-        txtBackgroundBlue.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtBackgroundBlue.setText("0");
-        txtBackgroundBlue.setPreferredSize(new java.awt.Dimension(50, 20));
-        panBlueScroller1.add(txtBackgroundBlue);
+        redTextBackground.setText("0");
+        redTextBackground.setMinimumSize(new java.awt.Dimension(15, 20));
+        redTextBackground.setPreferredSize(new java.awt.Dimension(20, 20));
+        redTextBackground.setRequestFocusEnabled(false);
+        panBlueScroller1.add(redTextBackground);
 
         jPanel1.add(panBlueScroller1);
 
@@ -428,48 +433,46 @@ public class DrawerMain extends javax.swing.JFrame {
         jLabel9.setPreferredSize(new java.awt.Dimension(35, 14));
         panGreenScroller1.add(jLabel9);
 
-        scrBackgroundGreenScroller.setMaximum(256);
-        scrBackgroundGreenScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
-        scrBackgroundGreenScroller.setVisibleAmount(1);
-        scrBackgroundGreenScroller.setPreferredSize(new java.awt.Dimension(150, 16));
-        scrBackgroundGreenScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+        backgroundGreenScroller.setBlockIncrement(1);
+        backgroundGreenScroller.setMaximum(256);
+        backgroundGreenScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
+        backgroundGreenScroller.setVisibleAmount(1);
+        backgroundGreenScroller.setPreferredSize(new java.awt.Dimension(170, 17));
+        backgroundGreenScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
             public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
-                setColourBackgroundScroller(evt);
+                backgroundGreenScrollerbackgroundColourHandler(evt);
             }
         });
-        panGreenScroller1.add(scrBackgroundGreenScroller);
+        panGreenScroller1.add(backgroundGreenScroller);
 
-        txtBackgroundGreen.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtBackgroundGreen.setText("0");
-        txtBackgroundGreen.setPreferredSize(new java.awt.Dimension(50, 20));
-        panGreenScroller1.add(txtBackgroundGreen);
+        greenTextBackground.setText("0");
+        greenTextBackground.setMinimumSize(new java.awt.Dimension(20, 20));
+        panGreenScroller1.add(greenTextBackground);
 
         jPanel1.add(panGreenScroller1);
 
         panRedScroller1.setPreferredSize(new java.awt.Dimension(270, 26));
         panRedScroller1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabel10.setText("Red");
-        jLabel10.setPreferredSize(new java.awt.Dimension(35, 14));
-        panRedScroller1.add(jLabel10);
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel8.setText("Blue");
+        jLabel8.setPreferredSize(new java.awt.Dimension(35, 14));
+        panRedScroller1.add(jLabel8);
 
-        scrBackgroundRedScroller.setMaximum(256);
-        scrBackgroundRedScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
-        scrBackgroundRedScroller.setVisibleAmount(1);
-        scrBackgroundRedScroller.setPreferredSize(new java.awt.Dimension(150, 16));
-        scrBackgroundRedScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+        backgroundBlueScroller.setBlockIncrement(1);
+        backgroundBlueScroller.setMaximum(256);
+        backgroundBlueScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
+        backgroundBlueScroller.setVisibleAmount(1);
+        backgroundBlueScroller.setPreferredSize(new java.awt.Dimension(170, 17));
+        backgroundBlueScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
             public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
-                setColourBackgroundScroller(evt);
+                backgroundBlueScrollerbackgroundColourHandler(evt);
             }
         });
-        panRedScroller1.add(scrBackgroundRedScroller);
+        panRedScroller1.add(backgroundBlueScroller);
 
-        txtBackgroundRed.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtBackgroundRed.setText("0");
-        txtBackgroundRed.setToolTipText("");
-        txtBackgroundRed.setPreferredSize(new java.awt.Dimension(50, 20));
-        panRedScroller1.add(txtBackgroundRed);
+        blueTextBackground.setText("0");
+        panRedScroller1.add(blueTextBackground);
 
         jPanel1.add(panRedScroller1);
 
@@ -654,30 +657,10 @@ public class DrawerMain extends javax.swing.JFrame {
 
     private void resetBackground(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetBackground
         // TODO add your handling code here:
-        scrBackgroundBlueScroller.setValue(0);
-        scrBackgroundRedScroller.setValue(0);
-        scrBackgroundGreenScroller.setValue(0);
-        
+     
         drawingPanel.setBackground(Color.WHITE);
         
     }//GEN-LAST:event_resetBackground
-
-    private void setColourBackgroundScroller(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_setColourBackgroundScroller
-        // TODO add your handling code here:
-        
-        //Get the scrollers values
-        
-        
-          
-      
-        drawingPanel.setBackground(new Color(255 - scrBackgroundRedScroller.getValue(),
-                255- scrBackgroundGreenScroller.getValue() ,255 - scrBackgroundBlueScroller.getValue()));
-        txtBackgroundRed.setText("" + (255 - scrBackgroundRedScroller.getValue()));
-        txtBackgroundGreen.setText(""+ (255 - scrBackgroundGreenScroller.getValue()));
-        txtBackgroundBlue.setText(""+ (255 - scrBackgroundBlueScroller.getValue()));
-        
-        
-    }//GEN-LAST:event_setColourBackgroundScroller
     private String currentInput = "";
     
     public Dimension getCanvasWidth(){
@@ -748,7 +731,32 @@ public class DrawerMain extends javax.swing.JFrame {
         
     }//GEN-LAST:event_startTimerButtonActionPerformed
 
+    private void backgroundColourHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_backgroundColourHandler
+       
+        backgroundColourHandler();
+        
+    }//GEN-LAST:event_backgroundColourHandler
+
+    private void backgroundGreenScrollerbackgroundColourHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_backgroundGreenScrollerbackgroundColourHandler
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backgroundGreenScrollerbackgroundColourHandler
+
+    private void backgroundBlueScrollerbackgroundColourHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_backgroundBlueScrollerbackgroundColourHandler
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backgroundBlueScrollerbackgroundColourHandler
+
+    public void backgroundColourHandler(){
+        
+        backgroundRedScroller.getValue();
+        backgroundGreenScroller.getValue();
+        backgroundBlueScroller.getValue();
+        
+        System.out.println(backgroundRedScroller.getValue());
+        System.out.println(backgroundGreenScroller.getValue());
+        System.out.println(backgroundBlueScroller.getValue());
     
+        
+    }
     
      private void changeCurrentColour(java.awt.event.AdjustmentEvent evt) {   
          
@@ -794,8 +802,8 @@ public class DrawerMain extends javax.swing.JFrame {
         currentGreen.setVisibleAmount(1);
         currentBlue.setVisibleAmount(1);
         
-        currentRed.setPreferredSize(new  java.awt.Dimension(150, 16));
-        currentGreen.setPreferredSize(new  java.awt.Dimension(150, 16));
+        currentRed.setPreferredSize(new   java.awt.Dimension(150, 16));
+        currentGreen.setPreferredSize(new java.awt.Dimension(150, 16));
         currentBlue.setPreferredSize(new  java.awt.Dimension(150, 16));
         
         uiCom.add(new JLabel("Choose your new colour!"));
@@ -805,23 +813,15 @@ public class DrawerMain extends javax.swing.JFrame {
         uiCom.add(currentGreen);
         uiCom.add(new JLabel("Blue:"));
         uiCom.add(currentBlue);
-        
 
-
-scrBackgroundGreenScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
-    public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
-        setColourBackgroundScroller(evt);
-    }
-});
-
-panGreenScroller1.add(scrBackgroundGreenScroller);
-        int dialog = JOptionPane.showConfirmDialog(null, uiCom.toArray(),"Choose new Colour", JOptionPane.WARNING_MESSAGE);
+int dialog = JOptionPane.showConfirmDialog(null, uiCom.toArray(),"Choose new Colour", JOptionPane.WARNING_MESSAGE);
             if(dialog == JOptionPane.OK_OPTION){
 
                 
                 
             }
-    }
+
+}
     /**
      * @param args the command line arguments
      */
@@ -836,11 +836,16 @@ panGreenScroller1.add(scrBackgroundGreenScroller);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Label TimeLabel;
+    private javax.swing.JScrollBar backgroundBlueScroller;
+    private javax.swing.JScrollBar backgroundGreenScroller;
+    private javax.swing.JScrollBar backgroundRedScroller;
+    private javax.swing.JTextField blueTextBackground;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnLeft;
     private javax.swing.JButton btnLoadJSON;
     private javax.swing.JButton btnLoadXML;
     private javax.swing.JButton btnRight;
+    private javax.swing.JTextField greenTextBackground;
     private javax.swing.ButtonGroup grpShape;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -878,20 +883,15 @@ panGreenScroller1.add(scrBackgroundGreenScroller);
     private javax.swing.JRadioButton radOval;
     private javax.swing.JRadioButton radRectangle;
     private javax.swing.JRadioButton radTriangle;
+    private javax.swing.JTextField redTextBackground;
     private javax.swing.JButton resetBackground;
     private javax.swing.JButton resetButton;
-    private javax.swing.JScrollBar scrBackgroundBlueScroller;
-    private javax.swing.JScrollBar scrBackgroundGreenScroller;
-    private javax.swing.JScrollBar scrBackgroundRedScroller;
     private javax.swing.JScrollBar scrBackgroundRedScroller1;
     private javax.swing.JScrollBar scrBlue;
     private javax.swing.JScrollBar scrBrightness;
     private javax.swing.JScrollBar scrGreen;
     private javax.swing.JScrollBar scrRed;
     private javax.swing.JButton startTimerButton;
-    private javax.swing.JTextField txtBackgroundBlue;
-    private javax.swing.JTextField txtBackgroundGreen;
-    private javax.swing.JTextField txtBackgroundRed;
     private javax.swing.JTextField txtBlue;
     private javax.swing.JTextField txtGreen;
     private javax.swing.JTextField txtRed;
