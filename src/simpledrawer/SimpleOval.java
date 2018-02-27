@@ -56,7 +56,6 @@ public class SimpleOval extends Shape implements ShapeArea{
             g2d.drawOval(xs, ys,  vertices.get(1).x - xs,  vertices.get(1).y - ys);
         }
         
-    }
-    
+    }    
     
 }

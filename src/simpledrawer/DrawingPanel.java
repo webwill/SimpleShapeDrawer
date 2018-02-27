@@ -52,7 +52,7 @@ public class DrawingPanel extends JPanel {
     ArrayList<ShapeLine> rectLine = new ArrayList<ShapeLine>();
     ArrayList<ShapeLine> outerRectLine = new ArrayList<ShapeLine>();
     
-    
+    private FactoryShape factory;
     
     // position of the latest click
     private int x, y;
@@ -87,6 +87,7 @@ public class DrawingPanel extends JPanel {
         currentShapeType = st;
         currentRotation = 0;
         currentBrightness = 1;
+        factory = new FactoryShape();
         //mension dm = new DrawerMain().getCanvasWidth();
         //int[][] martix2D = new int[dm.width][dm.height];
         //System.out.println(martix2D.length);
@@ -343,7 +344,7 @@ public class DrawingPanel extends JPanel {
                 switch (currentShapeType) {
                     case LINE: // Draw the line 
                         currentPoints.add(new Point(e.getX(), e.getY()));
-                        shapes.add(new SimpleLine(currentPoints, currentColor, currentThickness, ShapeType.LINE));
+                        shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.LINE));
                         addCurrentShape(new Shape(currentPoints, currentColor, currentThickness, currentShapeType));
                         System.out.println("The shapes size is " + shapes.size());
                         
@@ -351,43 +352,34 @@ public class DrawingPanel extends JPanel {
                         break;
                     case OVAL: // Draw the oval
                         currentPoints.add(new Point(e.getX(), e.getY()));
-                        shapes.add(new SimpleOval(currentPoints, currentColor, currentThickness, ShapeType.OVAL));
+                        shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.OVAL));
                         currentPoints = null;
                         break;
-                    case TRIANGLE: // May or may not have finished the triangle
+                    case TRIANGLE:
                         currentPoints.add(new Point(e.getX(), e.getY()));
-                        //This is not where the dots are been created
-                        if (currentPoints.size() == 3) { // 3 points so must be complete triangle
-                            shapes.add(new SimpleTriangle(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE));
+                        //This is not where the dots are being created
+                        if (currentPoints.size() == 3) {
+                            shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE));
                             currentPoints = null;
                             break;
                         }
                         break;
                     case RECTANGLE:
                         //Need to get store the fourth point to create a rectangle
-
-                        SimpleRectangle test = new SimpleRectangle();
-                        if (currentPoints.size()  > 1 && test.checkSamePoint(currentPoints)) {
-                              currentPoints.add(new Point(e.getX(), e.getY()));
-                              
-                        }else if(currentPoints.size() == 1){
-                           currentPoints.add(new Point(e.getX(), e.getY()));
-                           currentPoints = test.checkSamePointList(currentPoints);
-                            
-                        }
+                        
+                        currentPoints.add(new Point(e.getX(), e.getY()));
                         
                         if (currentPoints.size() == 4) {
-                            SimpleRectangle st = new SimpleRectangle(currentPoints, currentColor, currentThickness, ShapeType.RECTANGLE);
-                            shapes.add(st);
+                            shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.RECTANGLE));
                             currentPoints = null;
                             break;
                         }
                     case NEWSHAPE:
                         
                         currentPoints.add(new Point(e.getX(), e.getY()));
-                        //This is not where the dots are been created
-                        if (currentPoints.size() == getSildes()) { // 3 points so must be complete triangle
-                            shapes.add(new SimpleTriangle(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE));
+                        //This is not where the dots are being created
+                        if (currentPoints.size() == getSildes()) {
+                            shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE));
                             currentPoints = null;
                             break;
                         }

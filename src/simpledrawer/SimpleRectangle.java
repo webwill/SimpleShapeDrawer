@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package simpledrawer;
 
 import java.awt.Color;
@@ -11,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author willi
- */
 public class SimpleRectangle extends Shape implements ShapeArea {
 
     private int minX, maxX, minY, maxY;
@@ -62,7 +53,7 @@ public class SimpleRectangle extends Shape implements ShapeArea {
                 maxY = v.get(z).y + 10;
 
                 if (p.x <= maxX && p.x >= minX && p.y <= maxY && p.y >= minY) {
-                    JOptionPane.showConfirmDialog(null, "You are clicking too short to the last click");
+                    JOptionPane.showConfirmDialog(null, "You are clicking too close to the previous point.");
                    state = false;
                   break;
                 }else {
