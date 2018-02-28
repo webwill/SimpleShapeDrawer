@@ -669,23 +669,36 @@ public class DrawerMain extends javax.swing.JFrame {
     
     private void handleThickness(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_handleThickness
         // TODO add your handling code here:
-        int thickness = 5;
+         int thickness = 5;
         String input =  txtThickness.getText();
-        if(KeyEvent.VK_9 >= evt.getKeyCode() && !( txtThickness.getText().isEmpty())){
+        int key = evt.getKeyCode();
+       
+        
+     
+        if( key <= KeyEvent.VK_9 && key >= KeyEvent.VK_0 && !(txtThickness.getText().equals(""))){
+            System.out.println("This is meant");
             thickness = Integer.parseInt(input.trim());
-       thickness = (thickness > 0 && thickness < 41 )? thickness : 5;
-       System.out.println("This is the if statement");
+            if (!(thickness > 0 &&  thickness <= 40) ) {
+                int result = JOptionPane.showConfirmDialog( null, "You need to number between 1 and 40","alert", JOptionPane.OK_CANCEL_OPTION);
+            }
+       thickness = (thickness > 0 && thickness < 41 )? thickness : 5; 
+       
+       txtThickness.setText(""+thickness);
        drawingPanel.setCurrentThickness(thickness);
         }else{
             if(!(txtThickness.getText().isEmpty())){
-            int result = JOptionPane.showConfirmDialog( null, "You need to number between 1 and 40","alert", JOptionPane.OK_CANCEL_OPTION);
+            //int result = JOptionPane.showConfirmDialog( null, "You need to number between 1 and 40","alert", JOptionPane.OK_CANCEL_OPTION);
             }
             String temp = input.replace(evt.getKeyChar(), ' ');
-            temp.trim();
+            temp = temp.trim();
+            
             txtThickness.setText(temp);
         }
         
         /* only allow thicknesses in the range 1 to 40 */
+
+       
+   
 
        
       
