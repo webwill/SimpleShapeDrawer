@@ -14,7 +14,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.List;
 
-public class SimpleOval extends Shape implements ShapeArea{
+public class SimpleOval extends Shape implements ShapeArea, SelectableShape{
     
     Color colour = null;
     int t;
@@ -57,5 +57,10 @@ public class SimpleOval extends Shape implements ShapeArea{
         }
         
     }    
+
+    @Override
+    public boolean isSelected() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

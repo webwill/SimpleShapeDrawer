@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class SimpleRectangle extends Shape implements ShapeArea {
+public class SimpleRectangle extends Shape implements ShapeArea, SelectableShape {
 
     private int minX, maxX, minY, maxY;
 
@@ -68,6 +68,11 @@ public class SimpleRectangle extends Shape implements ShapeArea {
 
     @Override
     public double getArea() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isSelected() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

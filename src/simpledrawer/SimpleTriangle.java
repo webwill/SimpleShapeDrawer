@@ -12,7 +12,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
 
-public class SimpleTriangle extends Shape implements ShapeArea{
+public class SimpleTriangle extends Shape implements ShapeArea, SelectableShape{
 
     public SimpleTriangle(List<Point> v, Color c, int t, ShapeType st) {
         super(v, c, t, st);
@@ -25,5 +25,10 @@ public class SimpleTriangle extends Shape implements ShapeArea{
         int term3 = vertices.get(2).x * (vertices.get(0).y - vertices.get(1).y);
 
         return Math.abs((term1 + term2 + term3) / 2.0);
+    }
+
+    @Override
+    public boolean isSelected() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

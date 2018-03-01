@@ -676,7 +676,7 @@ public class DrawerMain extends javax.swing.JFrame {
         
      
         if( key <= KeyEvent.VK_9 && key >= KeyEvent.VK_0 && !(txtThickness.getText().equals(""))){
-            System.out.println("This is meant");
+            
             thickness = Integer.parseInt(input.trim());
             if (!(thickness > 0 &&  thickness <= 40) ) {
                 int result = JOptionPane.showConfirmDialog( null, "You need to number between 1 and 40","alert", JOptionPane.OK_CANCEL_OPTION);

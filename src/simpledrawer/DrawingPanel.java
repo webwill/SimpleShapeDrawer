@@ -163,15 +163,10 @@ public class DrawingPanel extends JPanel {
        
         g2d.setStroke(new BasicStroke(currentThickness));
         
-        g2d.drawLine(rectLine.get(0).getStartX(),rectLine.get(0).getStartY() , rectLine.get(0).getEndX(), rectLine.get(0).getEndY());
-        g2d.drawLine(rectLine.get(0).getEndX(),rectLine.get(0).getEndY() , rectLine.get(1).getEndX(), rectLine.get(1).getEndY());
-        g2d.drawLine(rectLine.get(1).getEndX(),rectLine.get(1).getEndY() , rectLine.get(2).getEndX(), rectLine.get(2).getEndY());
-        g2d.drawLine(rectLine.get(3).getStartX(),rectLine.get(3).getStartY() , rectLine.get(0).getStartX(), rectLine.get(0).getStartY());
-
-        g2d.drawLine(outerRectLine.get(0).getStartX(),outerRectLine.get(0).getStartY(),outerRectLine.get(0).getEndX(),outerRectLine.get(0).getEndY());
-        g2d.drawLine(outerRectLine.get(0).getEndX(),outerRectLine.get(0).getEndY() , outerRectLine.get(1).getEndX(), outerRectLine.get(1).getEndY());
-        g2d.drawLine(outerRectLine.get(2).getStartX(),outerRectLine.get(2).getStartY() , outerRectLine.get(2).getEndX(), outerRectLine.get(2).getEndY());
-        g2d.drawLine(outerRectLine.get(3).getStartX(),outerRectLine.get(3).getStartY() , outerRectLine.get(3).getEndX(), outerRectLine.get(3).getEndY());
+            for (int i = 0; i < rectLine.size(); i++) {
+                g2d.drawLine(rectLine.get(i).getStartX(),rectLine.get(i).getStartY() , rectLine.get(i).getEndX(), rectLine.get(i).getEndY());
+            }
+      
         }else{
             getDot();
         }
@@ -206,17 +201,14 @@ public class DrawingPanel extends JPanel {
         
        
         
-        ShapeLine silde1,silde2,silde3,silde4;
-         
-        silde1 = new ShapeLine(new Point(canvasX,canvasY), new Point(canvasX*3,canvasY));
-        silde2 = new ShapeLine(new Point(canvasX*3,canvasY), new Point(canvasX*3,canvasY*3));
-        silde3 = new ShapeLine(new Point(canvasX*3,canvasY*2), new Point(canvasX,canvasY*3));
-        silde4 = new ShapeLine(new Point(canvasX,canvasY*3), new Point(canvasX,canvasY));
         
-        outerRectLine.add(new ShapeLine(new Point(canvasOuterX,canvasOuterY), new Point(canvasOuterX*4,canvasOuterY)));
-        outerRectLine.add(new ShapeLine(new Point(canvasOuterX*4,canvasOuterY), new Point(canvasOuterX*4,canvasOuterY*4)));
-        outerRectLine.add(new ShapeLine(new Point(canvasOuterX*4,canvasOuterY*4), new Point(canvasOuterX,canvasOuterY*4)));
-        outerRectLine.add(new ShapeLine(new Point(canvasOuterX,canvasOuterY*4), new Point(canvasOuterX,canvasOuterY)));
+         
+        ShapeLine silde1 = new ShapeLine(new Point(canvasX,canvasY), new Point(canvasX*3,canvasY));
+        ShapeLine silde2 = new ShapeLine(new Point(canvasX*3,canvasY), new Point(canvasX*3,canvasY*3));
+        ShapeLine silde3 = new ShapeLine(new Point(canvasX,canvasY*3), new Point(canvasX*3,canvasY*3));
+        ShapeLine silde4 = new ShapeLine(new Point(canvasX,canvasY),new Point(canvasX,canvasY*3));
+        
+        
         
         
         rectLine.add(silde1);
@@ -224,9 +216,8 @@ public class DrawingPanel extends JPanel {
         rectLine.add(silde3);
         rectLine.add(silde4);
         
-         drawLine(canvasX, canvasY,canvasX*3,canvasY);
-         drawLine(canvasX*3, canvasY,canvasX*3,canvasY*3);
          
+        
          
          
          gameIsRunning = true;
@@ -246,14 +237,6 @@ public class DrawingPanel extends JPanel {
             
        }
         
-    }
-    public void drawLine(int startX, int startY, int endX, int endY){
-            
-            
-            System.out.println("Called the line");
-           
-           
-            
     }
     public void drawDot(){
        
@@ -297,13 +280,37 @@ public class DrawingPanel extends JPanel {
         return shapeSildes;
     }
     
+    
+    
     public void rectIsSelected(Point p){
-        for(ShapeLine line: rectLine){
-            if(line.getSelectableBound(p)){
-                    //make all adjuctment
-            }        
-        
+        for(int i = 0; i < rectLine.size();i++){
+             if(rectLine.get(i).getSelectableBound(p)){
+                   
+
+                   ShapeLine newLine = new ShapeLine(new Point(rectLine.get(i).getStartX(), rectLine.get(i).getStartY()), new Point(p.x+20, p.y +20));
+                   
+                   rectLine.add(i,newLine);
+                   
+                   ShapeLine oldLine = rectLine.get(i);
+                   
+                   int j = rectLine.indexOf(newLine);
+                   
+                   //rectLine.remove(oldLine);
+                   
+                   //System.out.println(j);
+                   
+                    //rectLine.remove(0);
+                    //System.out.println(rectLine.get(i).getEndX());
+                   repaint();
+                   break;
+             }else{
+                 continue;
+             }
+             
         }
+       
+
+        repaint();
     }
 
     private class MouseDrag implements MouseMotionListener {
@@ -311,8 +318,7 @@ public class DrawingPanel extends JPanel {
         
         @Override
         public void mouseDragged(MouseEvent e) {
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            System.out.println("X:" + e.getX() + " Y" + e.getY() );
+           
             rectIsSelected(new Point(e.getX(), e.getY()));
             
         }
@@ -403,6 +409,7 @@ public class DrawingPanel extends JPanel {
         
         
     }
+
 
     public void setCurrentThickness(int currentThickness) {
         this.currentThickness = currentThickness;
