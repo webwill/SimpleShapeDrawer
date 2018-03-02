@@ -75,6 +75,11 @@ public class SimpleRectangle extends Shape implements ShapeArea, SelectableShape
     public boolean isSelected() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void sizeChange(int scale) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
 }

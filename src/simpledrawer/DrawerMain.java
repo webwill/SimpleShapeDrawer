@@ -627,7 +627,7 @@ public class DrawerMain extends javax.swing.JFrame {
         try {
             JSONShapeReader shapeReader = new JSONShapeReader();
             shapeReader.getShapesFromFile("stored_shapes.json");
-            List listOfShapes = shapeReader.getSlList();
+            List listOfShapes = shapeReader.getShapes();
             drawingPanel.setShapes(listOfShapes);
             drawingPanel.repaint();
         } catch (FileNotFoundException ex) {

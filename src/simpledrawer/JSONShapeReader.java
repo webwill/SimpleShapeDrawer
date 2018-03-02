@@ -34,7 +34,8 @@ public class JSONShapeReader {
     private List<SimpleLine> slList; // list of lines
     private List<SimpleTriangle> triangleList; // list of lines
     private List<SimpleOval> olList; // list of ovals
-
+    private List<Shape> shapeList;
+    
     private Gson gson; // gson object used to "parse" the JSON
 
     public JSONShapeReader() {
@@ -42,6 +43,7 @@ public class JSONShapeReader {
         slList = new ArrayList<>();
         olList = new ArrayList<>();
         triangleList = new ArrayList<>();
+        shapeList = new ArrayList<>();
         
     }
 
@@ -69,16 +71,19 @@ public class JSONShapeReader {
         for (ShapeEvent se : los.listOfShapeEvents) {
             switch (se.getShapeType()) {
                 case LINE:  // store the line
-                    //SimpleLine sl = new SimpleLine(se.getXStart(), se.getYStart(), se.getYStart(), se.getYEnd(), se.getColour(), se.getThickness(), ShapeType.LINE);
-                   // slList.add(sl);
+                    SimpleLine sl = new SimpleLine(se.getVertices(), se.getColour(), se.getThickness(), ShapeType.LINE);
+                    slList.add(sl);
+                    shapeList.add(sl);
                     break;
                 case OVAL:  // store the oval
-                   // SimpleOval ol = new SimpleOval(se.getXStart(), se.getYStart(), se.getYStart(), se.getYEnd(), se.getColour(), se.getThickness(), ShapeType.OVAL);
-                  //  olList.add(ol);
+                    SimpleOval ol = new SimpleOval(se.getVertices(), se.getColour(), se.getThickness(), ShapeType.OVAL);
+                   olList.add(ol);
+                   shapeList.add(ol);
                     break;
                 case TRIANGLE:
                     SimpleTriangle st = new SimpleTriangle(se.getVertices(), Color.BLACK, 0, ShapeType.TRIANGLE);
                     triangleList.add(st);
+                    shapeList.add(st);
                     break;
             }
         }
@@ -92,6 +97,10 @@ public class JSONShapeReader {
         return triangleList;
     }
 
+    public List<Shape> getShapes(){
+        return shapeList;
+    }
+    
     /**
      *
      * @return the list of oval shapes
@@ -110,12 +119,28 @@ public class JSONShapeReader {
         List<ShapeEvent> list = new ArrayList<>();
         // load in some hard-coded shapes
         
-        ArrayList<Point> al = new ArrayList<>();
-        al.add(new Point(40,80));
-        al.add(new Point(570,160));
-        al.add(new Point(270,60));
+        ArrayList<Point> triangle = new ArrayList<>();
+        ArrayList<Point> line = new ArrayList<>();
+        ArrayList<Point> oval = new ArrayList<>();
         
-        list.add(new ShapeEvent(al, Color.BLACK, 5, ShapeType.TRIANGLE, "SHAPE"));
+        
+        //add the points to draw a triangle
+        triangle.add(new Point(40,80));
+        triangle.add(new Point(570,160));
+        triangle.add(new Point(270,60));
+        
+        //add the points to make line
+        line.add(new Point(20,40));
+        line.add(new Point(30,220));
+        
+        //add the points to make  
+        oval.add(new Point(80, 95));
+        oval.add(new Point(210, 555));
+        
+        
+        list.add(new ShapeEvent(line, Color.red, 25, ShapeType.LINE, "SHAPE"));
+        list.add(new ShapeEvent(oval, Color.pink, 15, ShapeType.OVAL, "SHAPE"));
+        list.add(new ShapeEvent(triangle, Color.CYAN, 25, ShapeType.TRIANGLE, "SHAPE"));
 
         ListOfShapeEvents los = new ListOfShapeEvents();
         los.listOfShapeEvents = list;
