@@ -347,11 +347,12 @@
                     <Property name="text" type="java.lang.String" value="Thickness"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JScrollBar" name="scrBackgroundRedScroller1">
+                <Component class="javax.swing.JScrollBar" name="thicknessScroller">
                   <Properties>
-                    <Property name="maximum" type="int" value="40"/>
+                    <Property name="maximum" type="int" value="41"/>
                     <Property name="minimum" type="int" value="1"/>
                     <Property name="orientation" type="int" value="0"/>
+                    <Property name="value" type="int" value="5"/>
                     <Property name="visibleAmount" type="int" value="1"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[100, 16]"/>
@@ -359,7 +360,7 @@
                     <Property name="requestFocusEnabled" type="boolean" value="true"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="adjustmentValueChanged" listener="java.awt.event.AdjustmentListener" parameters="java.awt.event.AdjustmentEvent" handler="scrBackgroundRedScroller1setColourBackgroundScroller"/>
+                    <EventHandler event="adjustmentValueChanged" listener="java.awt.event.AdjustmentListener" parameters="java.awt.event.AdjustmentEvent" handler="thicknessScrollersetColourBackgroundScroller"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtThickness">
@@ -463,7 +464,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="resetButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reset"/>
+                <Property name="text" type="java.lang.String" value="Reset Drawing Color"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[200, 23]"/>
                 </Property>
@@ -507,9 +508,6 @@
                 </Component>
                 <Component class="javax.swing.JScrollBar" name="backgroundRedScroller">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="f5" green="f0" red="f0" type="rgb"/>
-                    </Property>
                     <Property name="maximum" type="int" value="256"/>
                     <Property name="orientation" type="int" value="0"/>
                     <Property name="visibleAmount" type="int" value="1"/>
@@ -521,7 +519,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="adjustmentValueChanged" listener="java.awt.event.AdjustmentListener" parameters="java.awt.event.AdjustmentEvent" handler="backgroundColourHandler"/>
+                    <EventHandler event="adjustmentValueChanged" listener="java.awt.event.AdjustmentListener" parameters="java.awt.event.AdjustmentEvent" handler="backgroundRedScrollerbackgroundColourHandler"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="redTextBackground">
@@ -561,6 +559,7 @@
                   <Properties>
                     <Property name="maximum" type="int" value="256"/>
                     <Property name="orientation" type="int" value="0"/>
+                    <Property name="value" type="int" value="255"/>
                     <Property name="visibleAmount" type="int" value="1"/>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[5, 16]"/>
@@ -610,6 +609,7 @@
                   <Properties>
                     <Property name="maximum" type="int" value="256"/>
                     <Property name="orientation" type="int" value="0"/>
+                    <Property name="value" type="int" value="255"/>
                     <Property name="visibleAmount" type="int" value="1"/>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[5, 16]"/>
@@ -640,7 +640,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="resetBackground">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reset"/>
+                <Property name="text" type="java.lang.String" value="Reset Background Color"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[200, 23]"/>
                 </Property>
@@ -653,6 +653,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="resetBackground"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetBackgroundActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel2">
@@ -721,7 +722,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="739" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="734" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

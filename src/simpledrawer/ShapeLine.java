@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package simpledrawer;
 
 import java.awt.Point;
 
-/**
- *
- * @author willi
- */
 public class ShapeLine {
-    private Point startPoint, endPoint;
-    
+    private Point startPoint, endPoint;    
 
     int minBound,maxBound, bufferArea = 10;
     

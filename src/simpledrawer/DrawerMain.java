@@ -39,9 +39,9 @@ import org.xml.sax.SAXException;
 public class DrawerMain extends javax.swing.JFrame {
 
     private DrawingPanel drawingPanel; // the drawing panel
-    
+
     /**
-     * Initialise the components in the screen and then cast a reference to the
+     * Initialize the components in the screen and then cast a reference to the
      * panel that will be drawn on so it can be used elsewhere.
      */
     public DrawerMain() {
@@ -87,7 +87,7 @@ public class DrawerMain extends javax.swing.JFrame {
         newShape = new javax.swing.JRadioButton();
         panThickness = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        scrBackgroundRedScroller1 = new javax.swing.JScrollBar();
+        thicknessScroller = new javax.swing.JScrollBar();
         txtThickness = new javax.swing.JTextField();
         panRotate = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -297,18 +297,19 @@ public class DrawerMain extends javax.swing.JFrame {
         jLabel1.setText("Thickness");
         panThickness.add(jLabel1);
 
-        scrBackgroundRedScroller1.setMaximum(40);
-        scrBackgroundRedScroller1.setMinimum(1);
-        scrBackgroundRedScroller1.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
-        scrBackgroundRedScroller1.setVisibleAmount(1);
-        scrBackgroundRedScroller1.setPreferredSize(new java.awt.Dimension(100, 16));
-        scrBackgroundRedScroller1.setRequestFocusEnabled(true);
-        scrBackgroundRedScroller1.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+        thicknessScroller.setMaximum(41);
+        thicknessScroller.setMinimum(1);
+        thicknessScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
+        thicknessScroller.setValue(5);
+        thicknessScroller.setVisibleAmount(1);
+        thicknessScroller.setPreferredSize(new java.awt.Dimension(100, 16));
+        thicknessScroller.setRequestFocusEnabled(true);
+        thicknessScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
             public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
-                scrBackgroundRedScroller1setColourBackgroundScroller(evt);
+                thicknessScrollersetColourBackgroundScroller(evt);
             }
         });
-        panThickness.add(scrBackgroundRedScroller1);
+        panThickness.add(thicknessScroller);
 
         txtThickness.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtThickness.setText("0");
@@ -379,7 +380,7 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1435, 350));
         jPanel1.setRequestFocusEnabled(false);
 
-        resetButton.setText("Reset");
+        resetButton.setText("Reset Drawing Color");
         resetButton.setMaximumSize(new java.awt.Dimension(200, 23));
         resetButton.setMinimumSize(new java.awt.Dimension(200, 23));
         resetButton.setPreferredSize(new java.awt.Dimension(250, 23));
@@ -401,7 +402,6 @@ public class DrawerMain extends javax.swing.JFrame {
         jLabel10.setPreferredSize(new java.awt.Dimension(35, 14));
         panRedScroller1.add(jLabel10);
 
-        backgroundRedScroller.setForeground(new java.awt.Color(240, 240, 245));
         backgroundRedScroller.setMaximum(256);
         backgroundRedScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
         backgroundRedScroller.setVisibleAmount(1);
@@ -409,7 +409,7 @@ public class DrawerMain extends javax.swing.JFrame {
         backgroundRedScroller.setPreferredSize(new java.awt.Dimension(150, 16));
         backgroundRedScroller.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
             public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
-                backgroundColourHandler(evt);
+                backgroundRedScrollerbackgroundColourHandler(evt);
             }
         });
         panRedScroller1.add(backgroundRedScroller);
@@ -431,6 +431,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         backgroundGreenScroller.setMaximum(256);
         backgroundGreenScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
+        backgroundGreenScroller.setValue(255);
         backgroundGreenScroller.setVisibleAmount(1);
         backgroundGreenScroller.setMinimumSize(new java.awt.Dimension(5, 16));
         backgroundGreenScroller.setPreferredSize(new java.awt.Dimension(150, 16));
@@ -458,6 +459,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         backgroundBlueScroller.setMaximum(256);
         backgroundBlueScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
+        backgroundBlueScroller.setValue(255);
         backgroundBlueScroller.setVisibleAmount(1);
         backgroundBlueScroller.setMinimumSize(new java.awt.Dimension(5, 16));
         backgroundBlueScroller.setPreferredSize(new java.awt.Dimension(150, 16));
@@ -476,13 +478,18 @@ public class DrawerMain extends javax.swing.JFrame {
 
         jPanel1.add(panBlueScroller1);
 
-        resetBackground.setText("Reset");
+        resetBackground.setText("Reset Background Color");
         resetBackground.setMaximumSize(new java.awt.Dimension(200, 23));
         resetBackground.setMinimumSize(new java.awt.Dimension(200, 23));
         resetBackground.setPreferredSize(new java.awt.Dimension(250, 23));
         resetBackground.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 resetBackground(evt);
+            }
+        });
+        resetBackground.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBackgroundActionPerformed(evt);
             }
         });
         jPanel1.add(resetBackground);
@@ -535,7 +542,7 @@ public class DrawerMain extends javax.swing.JFrame {
             panDrawingAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panDrawingAreaLayout.createSequentialGroup()
                 .addComponent(jButton2)
-                .addGap(0, 739, Short.MAX_VALUE))
+                .addGap(0, 734, Short.MAX_VALUE))
         );
 
         getContentPane().add(panDrawingArea, java.awt.BorderLayout.CENTER);
@@ -555,9 +562,9 @@ public class DrawerMain extends javax.swing.JFrame {
     /* set the drawing colours */
     private void scrColourAdjustmentHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_scrColourAdjustmentHandler
         int currentRed, currentGreen, currentBlue;
-        currentRed = (255 - scrRed.getValue());
-        currentGreen = (255 - scrGreen.getValue());
-        currentBlue = (255 - scrBlue.getValue());
+        currentRed = (scrRed.getValue());
+        currentGreen = (scrGreen.getValue());
+        currentBlue = (scrBlue.getValue());
         txtRed.setText(currentRed + "");
         txtGreen.setText(currentGreen + "");
         txtBlue.setText(currentBlue + "");
@@ -580,28 +587,27 @@ public class DrawerMain extends javax.swing.JFrame {
             drawingPanel.setCurrentShapeType(ShapeType.TRIANGLE);
             return;
         }
-        if(radRectangle.isSelected()){
-                drawingPanel.setCurrentShapeType(ShapeType.RECTANGLE);
-                System.out.println("This is being checked");
-                return ;
-        }if(newShape.isSelected()){
-            String tempInput = JOptionPane.showInputDialog("Enter how many sildes for the shape");
+        if (radRectangle.isSelected()) {
+            drawingPanel.setCurrentShapeType(ShapeType.RECTANGLE);
+            return;
+        }
+        if (newShape.isSelected()) {
+            String tempInput = JOptionPane.showInputDialog("Enter the amount of points the shape will have.");
+            int newShapeInput = Integer.parseInt(tempInput);
             System.out.println(tempInput);
-            if(!(tempInput == null)){
-            
-            int input = Integer.parseInt(tempInput);
-            
-             drawingPanel.setShapeSildes(input);
-             drawingPanel.setCurrentShapeType(ShapeType.NEWSHAPE);
-             
-             getCanvasWidth();
-            }else{
-                radLine.setSelected(true);
+            if (newShapeInput > 1 && newShapeInput <= 50) {
+
+                drawingPanel.setShapeSildes(newShapeInput);
+                drawingPanel.setCurrentShapeType(ShapeType.NEWSHAPE);
+
+            } else {
+                Component newShapeErr = null;
+                JOptionPane.showMessageDialog(newShapeErr, "You may enter a value between 2 and 50.");
             }
         }
     }//GEN-LAST:event_radShapeActionPerformed
 
-   /* rotate the drawing 90 degrees to the right */
+    /* rotate the drawing 90 degrees to the right */
     private void btnRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightActionPerformed
         drawingPanel.rotate(90);
     }//GEN-LAST:event_btnRightActionPerformed
@@ -635,19 +641,113 @@ public class DrawerMain extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnLoadJSONActionPerformed
-    
-    
-    
+
+
     private void scrBrightnessAdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_scrBrightnessAdjustmentValueChanged
         float currentBrightness = scrBrightness.getValue();
         int colourValue = (int) (255 * ((100 - currentBrightness) / 100));
         labBrightness.setBackground(new Color(colourValue, colourValue, colourValue));
         drawingPanel.setCurrentBrightness((100 - currentBrightness) / 100);
     }//GEN-LAST:event_scrBrightnessAdjustmentValueChanged
+    private String currentInput = "";
+
+    public Dimension getCanvasWidth() {
+        return panDrawingArea.getPreferredSize();
+    }
+
+    private void handleThickness(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_handleThickness
+
+        int thickness = 5;
+        String input = txtThickness.getText();
+        int key = evt.getKeyCode();
+
+        if (key <= KeyEvent.VK_9 && key >= KeyEvent.VK_0 && !(txtThickness.getText().equals(""))) {
+
+            thickness = Integer.parseInt(input.trim());
+            if (!(thickness > 0 && thickness <= 40)) {
+                int result = JOptionPane.showConfirmDialog(null, "You need to number between 1 and 40", "alert", JOptionPane.OK_CANCEL_OPTION);
+            }
+            thickness = (thickness > 0 && thickness < 41) ? thickness : 5;
+
+            txtThickness.setText("" + thickness);
+            drawingPanel.setCurrentThickness(thickness);
+        } else {
+            if (!(txtThickness.getText().isEmpty())) {
+                //int result = JOptionPane.showConfirmDialog( null, "You need to number between 1 and 40","alert", JOptionPane.OK_CANCEL_OPTION);
+            }
+            String temp = input.replace(evt.getKeyChar(), ' ');
+            temp = temp.trim();
+
+            txtThickness.setText(temp);
+        }
+
+        /* only allow thicknesses in the range 1 to 40 */
+
+    }//GEN-LAST:event_handleThickness
+
+    private void thicknessScrollersetColourBackgroundScroller(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_thicknessScrollersetColourBackgroundScroller
+        
+        int thickness = thicknessScroller.getValue();
+        txtThickness.setText(thickness + "");
+    }//GEN-LAST:event_thicknessScrollersetColourBackgroundScroller
+
+    private JScrollBar currentRed, currentGreen, currentBlue;
+
+    private void changeColourButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeColourButton
+        // TODO add your handling code here:
+
+        changeCurrentColourDialog();
+
+
+    }//GEN-LAST:event_changeColourButton
+
+    private void startTimerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startTimerButtonActionPerformed
+        // TODO add your handling code here:
+
+        int result = JOptionPane.showConfirmDialog((Component) null, "You have 30 secounds to change a square into a " + "8" + " shape",
+                "Get Ready", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            System.out.println("This is true");
+
+            //prep the canvas
+            drawingPanel.clearDisplay();
+            drawingPanel.setCurrentShapeType(ShapeType.NOSHAPE);
+            drawingPanel.startGame();
+        }
+    }//GEN-LAST:event_startTimerButtonActionPerformed
+
+    private void startTimerButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startTimerButtonMousePressed
+        // TODO add your handling code here:
+        Timer timer = new Timer();
+        final String timeFormat = "Time: 00:00:";
+
+        //int userInput = JOptionPane.showConfirmDialog(Component null,, JOptionPane.OK_CANCEL_OPTION);
+    }//GEN-LAST:event_startTimerButtonMousePressed
+
+    private void resetBackgroundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBackgroundActionPerformed
+        backgroundRedScroller.setValue(255);
+        backgroundGreenScroller.setValue(255);
+        backgroundBlueScroller.setValue(255);
+    }//GEN-LAST:event_resetBackgroundActionPerformed
+
+    private void resetBackground(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetBackground
+
+    }//GEN-LAST:event_resetBackground
+
+    private void backgroundBlueScrollerbackgroundColourHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_backgroundBlueScrollerbackgroundColourHandler
+        backgroundColourHandler();
+    }//GEN-LAST:event_backgroundBlueScrollerbackgroundColourHandler
+
+    private void backgroundGreenScrollerbackgroundColourHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_backgroundGreenScrollerbackgroundColourHandler
+        backgroundColourHandler();
+    }//GEN-LAST:event_backgroundGreenScrollerbackgroundColourHandler
+
+    private void backgroundRedScrollerbackgroundColourHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_backgroundRedScrollerbackgroundColourHandler
+        backgroundColourHandler();
+    }//GEN-LAST:event_backgroundRedScrollerbackgroundColourHandler
 
     private void resetButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetButtonMousePressed
-        // TODO add your handling code here:
-        
+
         //reset all the scroller
         scrBlue.setValue(0);
         scrRed.setValue(0);
@@ -655,146 +755,42 @@ public class DrawerMain extends javax.swing.JFrame {
         scrBrightness.setValue(50);
     }//GEN-LAST:event_resetButtonMousePressed
 
-    private void resetBackground(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetBackground
-        // TODO add your handling code here:
-     
-        drawingPanel.setBackground(Color.WHITE);
-        
-    }//GEN-LAST:event_resetBackground
-    private String currentInput = "";
-    
-    public Dimension getCanvasWidth(){
-       return panDrawingArea.getPreferredSize();
+    public void backgroundColourHandler() {
+
+        int bgRed, bgGreen, bgBlue;
+        bgRed = (backgroundRedScroller.getValue());
+        bgGreen = (backgroundGreenScroller.getValue());
+        bgBlue = (backgroundBlueScroller.getValue());
+        redTextBackground.setText(bgRed + "");
+        greenTextBackground.setText(bgGreen + "");
+        blueTextBackground.setText(bgBlue + "");
+
+        drawingPanel.setBackground(new Color(bgRed, bgGreen, bgBlue));
+
     }
-    
-    private void handleThickness(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_handleThickness
-        // TODO add your handling code here:
-         int thickness = 5;
-        String input =  txtThickness.getText();
-        int key = evt.getKeyCode();
-       
-        
-     
-        if( key <= KeyEvent.VK_9 && key >= KeyEvent.VK_0 && !(txtThickness.getText().equals(""))){
-            
-            thickness = Integer.parseInt(input.trim());
-            if (!(thickness > 0 &&  thickness <= 40) ) {
-                int result = JOptionPane.showConfirmDialog( null, "You need to number between 1 and 40","alert", JOptionPane.OK_CANCEL_OPTION);
-            }
-       thickness = (thickness > 0 && thickness < 41 )? thickness : 5; 
-       
-       txtThickness.setText(""+thickness);
-       drawingPanel.setCurrentThickness(thickness);
-        }else{
-            if(!(txtThickness.getText().isEmpty())){
-            //int result = JOptionPane.showConfirmDialog( null, "You need to number between 1 and 40","alert", JOptionPane.OK_CANCEL_OPTION);
-            }
-            String temp = input.replace(evt.getKeyChar(), ' ');
-            temp = temp.trim();
-            
-            txtThickness.setText(temp);
-        }
-        
-        /* only allow thicknesses in the range 1 to 40 */
 
-       
-   
+    private void changeCurrentColour(java.awt.event.AdjustmentEvent evt) {
 
-       
-      
-    }//GEN-LAST:event_handleThickness
+        int red, green, blue;
 
-    private void scrBackgroundRedScroller1setColourBackgroundScroller(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_scrBackgroundRedScroller1setColourBackgroundScroller
-        // TODO add your handling code here:
-    }//GEN-LAST:event_scrBackgroundRedScroller1setColourBackgroundScroller
+        red = currentRed.getValue();
+        green = currentGreen.getValue();
+        blue = currentBlue.getValue();
 
-    private void startTimerButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startTimerButtonMousePressed
-        // TODO add your handling code here:
-    Timer timer = new Timer();
-    final String timeFormat = "Time: 00:00:";
-    
-    //int userInput = JOptionPane.showConfirmDialog(Component null,, JOptionPane.OK_CANCEL_OPTION);
-        
-       
-    }//GEN-LAST:event_startTimerButtonMousePressed
+        Color c = new Color(red, green, blue);
 
-    private JScrollBar currentRed, currentGreen, currentBlue;
-    
-    private void changeColourButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeColourButton
-        // TODO add your handling code here:
-            
-        changeCurrentColourDialog();
-        
-        
-    }//GEN-LAST:event_changeColourButton
-
-    private void startTimerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startTimerButtonActionPerformed
-        // TODO add your handling code here:
-        
-        int result = JOptionPane.showConfirmDialog((Component) null, "You have 30 secounds to change a square into a " + "8" + " shape",
-        "Get Ready", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
-            System.out.println("This is true");
-            
-            //prep the canvas
-            drawingPanel.clearDisplay();
-            drawingPanel.setCurrentShapeType(ShapeType.NOSHAPE);
-            drawingPanel.startGame();
-        }
-        
-    }//GEN-LAST:event_startTimerButtonActionPerformed
-
-    private void backgroundColourHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_backgroundColourHandler
-       
-        backgroundColourHandler();
-        
-    }//GEN-LAST:event_backgroundColourHandler
-
-    private void backgroundGreenScrollerbackgroundColourHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_backgroundGreenScrollerbackgroundColourHandler
-        // TODO add your handling code here:
-    }//GEN-LAST:event_backgroundGreenScrollerbackgroundColourHandler
-
-    private void backgroundBlueScrollerbackgroundColourHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_backgroundBlueScrollerbackgroundColourHandler
-        // TODO add your handling code here:
-    }//GEN-LAST:event_backgroundBlueScrollerbackgroundColourHandler
-
-    public void backgroundColourHandler(){
-        
-        int red = 255 - backgroundRedScroller.getValue();
-        int green = 255 - backgroundGreenScroller.getValue();
-        int blue = 255 - backgroundBlueScroller.getValue();
-        
-        redTextBackground.setText(""+red);
-        greenTextBackground.setText(""+green);
-        blueTextBackground.setText(""+blue);
-    
-        drawingPanel.setBackground(new Color(red,green,blue));    
-        
+        ChangeCurrentShapeColour changeColour = new ChangeCurrentShapeColour();
+        changeColour.ChangeColour(c);
     }
-    
-     private void changeCurrentColour(java.awt.event.AdjustmentEvent evt) {   
-         
-         int red,green,blue;
-         
-         red = currentRed.getValue();
-         green = currentGreen.getValue();
-         blue = currentBlue.getValue();         
-         
-         Color c = new Color(red,green,blue);
-         
-         ChangeCurrentShapeColour changeColour = new ChangeCurrentShapeColour();
-         changeColour.ChangeColour(c);
-     }
-    
-    public void changeCurrentColourDialog(){
 
-        
+    public void changeCurrentColourDialog() {
+
         ArrayList<JComponent> uiCom = new ArrayList<JComponent>();
-        
+
         currentRed = new JScrollBar();
         currentGreen = new JScrollBar();
         currentBlue = new JScrollBar();
-        
+
         currentRed.setMaximum(256);
         currentRed.addAdjustmentListener((e) -> {
             changeCurrentColour(e);
@@ -807,19 +803,19 @@ public class DrawerMain extends javax.swing.JFrame {
         currentBlue.addAdjustmentListener((e) -> {
             changeCurrentColour(e);
         });
-        
+
         currentRed.setOrientation(JScrollBar.HORIZONTAL);
         currentGreen.setOrientation(JScrollBar.HORIZONTAL);
         currentBlue.setOrientation(JScrollBar.HORIZONTAL);
-        
+
         currentRed.setVisibleAmount(1);
         currentGreen.setVisibleAmount(1);
         currentBlue.setVisibleAmount(1);
-        
-        currentRed.setPreferredSize(new   java.awt.Dimension(150, 16));
+
+        currentRed.setPreferredSize(new java.awt.Dimension(150, 16));
         currentGreen.setPreferredSize(new java.awt.Dimension(150, 16));
-        currentBlue.setPreferredSize(new  java.awt.Dimension(150, 16));
-        
+        currentBlue.setPreferredSize(new java.awt.Dimension(150, 16));
+
         uiCom.add(new JLabel("Choose your new colour!"));
         uiCom.add(new JLabel("Red:"));
         uiCom.add(currentRed);
@@ -828,24 +824,21 @@ public class DrawerMain extends javax.swing.JFrame {
         uiCom.add(new JLabel("Blue:"));
         uiCom.add(currentBlue);
 
-int dialog = JOptionPane.showConfirmDialog(null, uiCom.toArray(),"Choose new Colour", JOptionPane.WARNING_MESSAGE);
-            if(dialog == JOptionPane.OK_OPTION){
+        int dialog = JOptionPane.showConfirmDialog(null, uiCom.toArray(), "Choose new Colour", JOptionPane.WARNING_MESSAGE);
+        if (dialog == JOptionPane.OK_OPTION) {
 
-                
-                
-            }
+        }
 
-}
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
 
-      DrawerMain dm = new  DrawerMain();
-              dm.setVisible(true);
-                dm.setResizable(false);
-        
-        
+        DrawerMain dm = new DrawerMain();
+        dm.setVisible(true);
+        dm.setResizable(false);
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -900,12 +893,12 @@ int dialog = JOptionPane.showConfirmDialog(null, uiCom.toArray(),"Choose new Col
     private javax.swing.JTextField redTextBackground;
     private javax.swing.JButton resetBackground;
     private javax.swing.JButton resetButton;
-    private javax.swing.JScrollBar scrBackgroundRedScroller1;
     private javax.swing.JScrollBar scrBlue;
     private javax.swing.JScrollBar scrBrightness;
     private javax.swing.JScrollBar scrGreen;
     private javax.swing.JScrollBar scrRed;
     private javax.swing.JButton startTimerButton;
+    private javax.swing.JScrollBar thicknessScroller;
     private javax.swing.JTextField txtBlue;
     private javax.swing.JTextField txtGreen;
     private javax.swing.JTextField txtRed;

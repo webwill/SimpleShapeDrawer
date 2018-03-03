@@ -23,6 +23,8 @@ public class XMLShapeReader {
 
     private List<SimpleLine> slList; // list of lines
     private List<SimpleOval> olList; // list of ovals
+    private List<SimpleTriangle> stList; // list of triangles
+    private List<SimpleRectangle> srList; // list of rectangles
 
     public XMLShapeReader() throws ParserConfigurationException, SAXException {
 

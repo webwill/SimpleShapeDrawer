@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package simpledrawer;
 
 import java.awt.BasicStroke;
@@ -10,13 +5,10 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
 import java.awt.Graphics2D;
-/**
- *
- * @author willi
- */
+
 public class Shape{
     
-    protected List<Point> vertices; // points that define the triangle
+    protected List<Point> vertices; // points that define the shape
     // Shape characteristics
     private Color colour;
     private int thickness;
