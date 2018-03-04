@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package simpledrawer;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author ww4953j
- */
-public class ChangeCurrentShapeColour {
-
-    
+public class ChangeCurrentShapeColour {    
     
     public void ChangeColour(Color color){
         DrawingPanel drawingPanel = new DrawingPanel();
@@ -33,11 +22,7 @@ public class ChangeCurrentShapeColour {
         drawingPanel.clearDisplay();
         drawingPanel.setCurrentShape(newShape);
         drawingPanel.repaintCanvas();
-        
-    
     }
-    
-    
 }
 
     

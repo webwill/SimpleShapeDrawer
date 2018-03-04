@@ -5,6 +5,6 @@ package simpledrawer;
  * @author Gill Windall
  */
 public interface ShapeEventListener {
-    //public void processShapeEvent(Object originator, ShapeEvent se);
+    public void processShapeEvent(Object originator, ShapeEvent se);
     
 }

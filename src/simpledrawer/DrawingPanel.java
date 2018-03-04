@@ -152,7 +152,6 @@ public class DrawingPanel extends JPanel {
         // Loop though the ArrayList drawing
         // all the shapes stored in it
         for (Shape Shape : shapes) {
-             System.out.println("This is been called from");
              Shape.drawShape(g2d , currentBrightness);
         }
           
@@ -171,8 +170,6 @@ public class DrawingPanel extends JPanel {
             getDot();
         }
     }
-
-    
     
     public void setShapeSildes(int input){
         shapeSildes = input;
@@ -196,37 +193,19 @@ public class DrawingPanel extends JPanel {
         int canvasOuterY = dm.getCanvasWidth().height/5;
         canvasY = dm.getCanvasWidth().height/4;
         
-        
-        
-        
-       
-        
-        
-         
         ShapeLine silde1 = new ShapeLine(new Point(canvasX,canvasY), new Point(canvasX*3,canvasY));
         ShapeLine silde2 = new ShapeLine(new Point(canvasX*3,canvasY), new Point(canvasX*3,canvasY*3));
         ShapeLine silde3 = new ShapeLine(new Point(canvasX,canvasY*3), new Point(canvasX*3,canvasY*3));
         ShapeLine silde4 = new ShapeLine(new Point(canvasX,canvasY),new Point(canvasX,canvasY*3));
         
-        
-        
-        
         rectLine.add(silde1);
         rectLine.add(silde2);
         rectLine.add(silde3);
         rectLine.add(silde4);
-        
-         
-        
-         
          
          gameIsRunning = true;
          repaint();
-         
-         
     }
-    
-    
     
     public void getDot(){
        if (currentPoints != null && currentPoints.size() >= 1) { // draw dot where line started
@@ -234,9 +213,7 @@ public class DrawingPanel extends JPanel {
             for (int i = 0; i < currentPoints.size(); i++) {
                 g2d.fillOval(currentPoints.get(i).x, currentPoints.get(i).y, 5, 5);
             }
-            
        }
-        
     }
     public void drawDot(){
        
@@ -361,7 +338,7 @@ public class DrawingPanel extends JPanel {
                         shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.OVAL));
                         currentPoints = null;
                         break;
-                    case TRIANGLE:
+                    case TRIANGLE: // Draw the triangle
                         currentPoints.add(new Point(e.getX(), e.getY()));
                         //This is not where the dots are being created
                         if (currentPoints.size() == 3) {
@@ -370,13 +347,13 @@ public class DrawingPanel extends JPanel {
                             break;
                         }
                         break;
-                    case RECTANGLE:
-                        //Need to get store the fourth point to create a rectangle
-                        
-                        currentPoints.add(new Point(e.getX(), e.getY()));
-                        
+                    case RECTANGLE: // Draw the rectangle    
+                        System.out.println(currentPoints.size());
+                        currentPoints.add(new Point(e.getX(), e.getY()));  
+                        System.out.println(currentPoints.size());
                         if (currentPoints.size() == 4) {
                             shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.RECTANGLE));
+                            System.out.println(currentPoints.size());
                             currentPoints = null;
                             break;
                         }

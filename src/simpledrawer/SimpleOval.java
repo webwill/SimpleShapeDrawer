@@ -45,13 +45,8 @@ public class SimpleOval extends Shape implements ShapeArea, SelectableShape{
         int bottomXs =  ((vertices.get(1).x- xs <= 0))? vertices.get(1).x - xs : vertices.get(1).x + xs ;
         // draw the oval        
         
-        if((vertices.get(1).x- xs) < 0){
-          
-       
-            
-            
-        g2d.drawOval(xs, ys,Math.abs( vertices.get(1).x - xs)  ,  vertices.get(1).y - ys);
-        
+        if((vertices.get(1).x - xs) < 0){   
+        g2d.drawOval(xs, ys,Math.abs( vertices.get(1).x - xs)  ,  vertices.get(1).y - ys);        
         }else{
             g2d.drawOval(xs, ys,  vertices.get(1).x - xs,  vertices.get(1).y - ys);
         }

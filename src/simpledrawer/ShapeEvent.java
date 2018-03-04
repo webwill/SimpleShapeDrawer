@@ -103,8 +103,7 @@ public class ShapeEvent {
     }
 
     @Override
-    public String toString() {
-        
+    public String toString() {        
         //return "ShapeEvent{" + "xStart=" + xStart + ", yStart=" + yStart + ", xEnd=" + xEnd + ", yEnd=" + yEnd + ", colour=" + colour + ", thickness=" + thickness + ", shapeType=" + shapeType + ", eventType=" + eventType + '}';
        return null;
     }

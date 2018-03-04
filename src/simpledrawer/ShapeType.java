@@ -9,5 +9,5 @@
 package simpledrawer;
 
 public enum ShapeType {
-        LINE, OVAL, TRIANGLE,RECTANGLE, NEWSHAPE, NOSHAPE;
+        LINE, OVAL, TRIANGLE, RECTANGLE, NEWSHAPE, NOSHAPE;
 }

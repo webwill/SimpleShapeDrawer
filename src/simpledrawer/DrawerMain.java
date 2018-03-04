@@ -689,6 +689,7 @@ public class DrawerMain extends javax.swing.JFrame {
         
         int thickness = thicknessScroller.getValue();
         txtThickness.setText(thickness + "");
+        drawingPanel.setCurrentThickness(thicknessScroller.getValue());
     }//GEN-LAST:event_thicknessScrollersetColourBackgroundScroller
 
     private JScrollBar currentRed, currentGreen, currentBlue;
