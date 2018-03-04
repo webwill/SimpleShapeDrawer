@@ -404,6 +404,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
         backgroundRedScroller.setMaximum(256);
         backgroundRedScroller.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
+        backgroundRedScroller.setValue(255);
         backgroundRedScroller.setVisibleAmount(1);
         backgroundRedScroller.setMinimumSize(new java.awt.Dimension(5, 16));
         backgroundRedScroller.setPreferredSize(new java.awt.Dimension(150, 16));

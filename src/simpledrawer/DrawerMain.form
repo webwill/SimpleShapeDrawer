@@ -510,6 +510,7 @@
                   <Properties>
                     <Property name="maximum" type="int" value="256"/>
                     <Property name="orientation" type="int" value="0"/>
+                    <Property name="value" type="int" value="255"/>
                     <Property name="visibleAmount" type="int" value="1"/>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[5, 16]"/>
