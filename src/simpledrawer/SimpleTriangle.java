@@ -9,7 +9,9 @@
 package simpledrawer;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.util.List;
 
 public class SimpleTriangle extends Shape implements ShapeArea, SelectableShape{
@@ -36,4 +38,21 @@ public class SimpleTriangle extends Shape implements ShapeArea, SelectableShape{
     public void sizeChange(int scale) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void drawShape(Graphics2D g2d, float currentBrightness) {
+       // super.drawShape(g2d, currentBrightness); //To change body of generated methods, choose Tools | Templates.
+       int[] x = new int[vertices.size()];
+       int[] y = new int[vertices.size()];
+       for(int i = 0 ; i < vertices.size(); i++){
+           x[i] = vertices.get(i).x;
+           y[i] = vertices.get(i).y;
+           
+       }
+       g2d.setColor(getColour());
+       Polygon p = new Polygon(x, y, 3);
+       g2d.fillPolygon(p);
+    }
+    
+    
 }
