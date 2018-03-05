@@ -90,16 +90,26 @@ public class Shape{
     
     }
     public void fillShape(Graphics2D g2d, float currentBrightness){
+       
+        
+       
        int[] x = new int[vertices.size()];
+       int[] x2 = new int[vertices.size()];
        int[] y = new int[vertices.size()];
+       int[] y2 = new int[vertices.size()];
        for(int i = 0 ; i < vertices.size(); i++){
            x[i] = vertices.get(i).x;
+           x2[i] = vertices.get(i).x;
            y[i] = vertices.get(i).y;
+           y2[i] = vertices.get(i).y;
            
        }
        g2d.setColor(getColour());
        Polygon p = new Polygon(x, y, vertices.size());
        g2d.fillPolygon(p);
+       g2d.setColor(fill);
+       Polygon p2 = new Polygon(x2, y2, vertices.size());
+       g2d.drawPolygon(p2);
     }
      
      public Color scaleColour(Color c, float currentBrightness) {

@@ -29,15 +29,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.border.Border;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 public class DrawerMain extends javax.swing.JFrame {
-
+    private JLabel currentPreview;
     private DrawingPanel drawingPanel; // the drawing panel
 
     /**
@@ -47,6 +49,7 @@ public class DrawerMain extends javax.swing.JFrame {
     public DrawerMain() {
         initComponents();
         drawingPanel = (DrawingPanel) panDrawingArea;
+        currentPreview = lineColorPreview;
     }
 
     /**
@@ -94,6 +97,12 @@ public class DrawerMain extends javax.swing.JFrame {
         btnLoadXML = new javax.swing.JButton();
         btnLoadJSON = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        lineColorPreview = new javax.swing.JLabel();
+        fillColorPreview = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         resetButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         panRedScroller1 = new javax.swing.JPanel();
@@ -122,12 +131,13 @@ public class DrawerMain extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         lineShapeButton = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        panDrawingArea = new DrawingPanel();
         jButton2 = new javax.swing.JButton();
+        panDrawingArea = new DrawingPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simple Draw");
         setMinimumSize(new java.awt.Dimension(1049, 739));
+        setPreferredSize(new java.awt.Dimension(970, 850));
         getContentPane().setLayout(new java.awt.BorderLayout());
 
         panControls.setPreferredSize(new java.awt.Dimension(270, 300));
@@ -137,7 +147,6 @@ public class DrawerMain extends javax.swing.JFrame {
         panScroller.setLayout(new java.awt.GridLayout(4, 0));
 
         panRedScroller.setPreferredSize(new java.awt.Dimension(200, 26));
-        panRedScroller.setLayout(new java.awt.FlowLayout(0));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Red");
@@ -334,6 +343,68 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(83, 130));
         jPanel1.setPreferredSize(new java.awt.Dimension(1435, 350));
         jPanel1.setRequestFocusEnabled(false);
+
+        jPanel4.setPreferredSize(new java.awt.Dimension(250, 100));
+
+        lineColorPreview.setBackground(new java.awt.Color(126, 126, 126));
+        lineColorPreview.setText("           ");
+        lineColorPreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        lineColorPreview.setOpaque(true);
+        lineColorPreview.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SelectableLineColourPreview(evt);
+            }
+        });
+
+        fillColorPreview.setBackground(new java.awt.Color(255, 126, 126));
+        fillColorPreview.setText("           ");
+        fillColorPreview.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        fillColorPreview.setOpaque(true);
+        fillColorPreview.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SelectableFillColourPreview(evt);
+            }
+        });
+
+        jLabel12.setText("Line Colour");
+
+        jLabel13.setText("Fill Colour");
+
+        jLabel14.setText("Choose Colour");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(lineColorPreview)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fillColorPreview)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel13))
+                    .addComponent(jLabel14))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lineColorPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fillColorPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addGap(30, 30, 30))
+        );
+
+        jPanel1.add(jPanel4);
 
         resetButton.setText("Reset Drawing Color");
         resetButton.setMaximumSize(new java.awt.Dimension(200, 23));
@@ -573,6 +644,14 @@ public class DrawerMain extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3);
 
+        jButton2.setText("Change current shape change");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeColourButton(evt);
+            }
+        });
+        jPanel1.add(jButton2);
+
         panControls.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panControls, java.awt.BorderLayout.WEST);
@@ -582,26 +661,15 @@ public class DrawerMain extends javax.swing.JFrame {
         panDrawingArea.setFocusCycleRoot(true);
         panDrawingArea.setPreferredSize(new java.awt.Dimension(700, 650));
 
-        jButton2.setText("Change current shape change");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeColourButton(evt);
-            }
-        });
-
         javax.swing.GroupLayout panDrawingAreaLayout = new javax.swing.GroupLayout(panDrawingArea);
         panDrawingArea.setLayout(panDrawingAreaLayout);
         panDrawingAreaLayout.setHorizontalGroup(
             panDrawingAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panDrawingAreaLayout.createSequentialGroup()
-                .addGap(0, 551, Short.MAX_VALUE)
-                .addComponent(jButton2))
+            .addGap(0, 698, Short.MAX_VALUE)
         );
         panDrawingAreaLayout.setVerticalGroup(
             panDrawingAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panDrawingAreaLayout.createSequentialGroup()
-                .addComponent(jButton2)
-                .addGap(0, 734, Short.MAX_VALUE))
+            .addGap(0, 783, Short.MAX_VALUE)
         );
 
         getContentPane().add(panDrawingArea, java.awt.BorderLayout.CENTER);
@@ -621,14 +689,20 @@ public class DrawerMain extends javax.swing.JFrame {
     /* set the drawing colours */
     private void scrColourAdjustmentHandler(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_scrColourAdjustmentHandler
         int currentRed, currentGreen, currentBlue;
+        JLabel preview = getPreview();
         currentRed = (scrRed.getValue());
         currentGreen = (scrGreen.getValue());
         currentBlue = (scrBlue.getValue());
         txtRed.setText(currentRed + "");
         txtGreen.setText(currentGreen + "");
         txtBlue.setText(currentBlue + "");
+        preview.setBackground(new Color(currentRed, currentGreen, currentBlue));
+        
+        if(fillColorPreview == preview){
+            drawingPanel.setFillColour(new Color(currentRed, currentGreen, currentBlue));
+        }
+        
         drawingPanel.setCurrentColor(new Color(currentRed, currentGreen, currentBlue));
-
     }//GEN-LAST:event_scrColourAdjustmentHandler
 
     /* change the type of shape to be drawn */
@@ -651,6 +725,9 @@ public class DrawerMain extends javax.swing.JFrame {
             return;
         }
         if (newShape.isSelected()) {
+            try {
+                
+            
             String tempInput = JOptionPane.showInputDialog("Enter the amount of points the shape will have.");
             try {
                 int newShapeInput = Integer.parseInt(tempInput);
@@ -666,6 +743,11 @@ public class DrawerMain extends javax.swing.JFrame {
             } catch(java.lang.NumberFormatException e) {
                 Component newShapeErr = null;
                 JOptionPane.showMessageDialog(newShapeErr, "You may enter a value between 3 and 50.");
+                JOptionPane.showMessageDialog(newShapeErr, "You may enter a value between 2 and 50.");
+            }
+            } catch (Exception e) {
+                
+                radLine.setSelected(true);
             }
         }
     }//GEN-LAST:event_radShapeActionPerformed
@@ -692,7 +774,6 @@ public class DrawerMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoadXMLActionPerformed
 
     private void btnLoadJSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadJSONActionPerformed
-
         try {
             JSONShapeReader shapeReader = new JSONShapeReader();
             shapeReader.getShapesFromFile("stored_shapes.json");
@@ -702,7 +783,6 @@ public class DrawerMain extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DrawerMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_btnLoadJSONActionPerformed
 
 
@@ -828,6 +908,30 @@ public class DrawerMain extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_fillShape
 
+    private void SelectableFillColourPreview(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SelectableFillColourPreview
+        lineColorPreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 240, 240), 2));
+        fillColorPreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        setPreview(fillColorPreview);
+    }//GEN-LAST:event_SelectableFillColourPreview
+
+    private void SelectableLineColourPreview(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SelectableLineColourPreview
+        fillColorPreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 240, 240), 2));
+        lineColorPreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        setPreview(lineColorPreview);
+    }//GEN-LAST:event_SelectableLineColourPreview
+    
+    
+    
+    public void setPreview(JLabel label){
+        currentPreview = label;
+    }
+    
+    
+    
+    public JLabel getPreview(){
+        return currentPreview;
+    }
+    
     public void backgroundColourHandler() {
 
         int bgRed, bgGreen, bgBlue;
@@ -849,7 +953,7 @@ public class DrawerMain extends javax.swing.JFrame {
         red = currentRed.getValue();
         green = currentGreen.getValue();
         blue = currentBlue.getValue();
-
+        
         Color c = new Color(red, green, blue);
 
         ChangeCurrentShapeColour changeColour = new ChangeCurrentShapeColour();
@@ -926,6 +1030,7 @@ public class DrawerMain extends javax.swing.JFrame {
     private javax.swing.JButton btnLoadJSON;
     private javax.swing.JButton btnLoadXML;
     private javax.swing.JButton btnRight;
+    private javax.swing.JLabel fillColorPreview;
     private javax.swing.JTextField greenTextBackground;
     private javax.swing.ButtonGroup grpShape;
     private javax.swing.JButton jButton1;
@@ -933,6 +1038,9 @@ public class DrawerMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -944,8 +1052,10 @@ public class DrawerMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel labBrightness;
+    private javax.swing.JLabel lineColorPreview;
     private javax.swing.JRadioButton lineShapeButton;
     private javax.swing.JRadioButton newShape;
     private javax.swing.JPanel panBlueScroller;

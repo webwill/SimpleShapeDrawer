@@ -47,6 +47,9 @@ public class DrawingPanel extends JPanel {
     int[][] grid;
     
     private boolean fill;
+    private Color fillColour;
+    
+    
 
     private boolean gameIsRunning = false;
 
@@ -71,7 +74,15 @@ public class DrawingPanel extends JPanel {
     public DrawingPanel() {
         this(Color.BLACK, 5, ShapeType.LINE);
     }
-
+    
+    public void setFillColour(Color fill){
+        fillColour = fill;
+        System.out.println(fillColour);
+    }
+    public Color getFillColour(){
+        return fillColour;
+    }
+    
     /* Constructor used to create a DrawingPanel with a
      * specified line colour, thickness and shape type
      */
@@ -332,7 +343,7 @@ public class DrawingPanel extends JPanel {
                             currentPoints.add(new Point(e.getX(), e.getY()));
                             if (currentPoints.size() == 2) {
                                if(fill){
-                                shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.OVAL, currentColor));
+                                shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.OVAL, getFillColour()));
                                 currentPoints = null;
                                 }else{
                                 shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.OVAL));
@@ -350,7 +361,7 @@ public class DrawingPanel extends JPanel {
                             currentPoints.add(new Point(e.getX(), e.getY()));
                             if (currentPoints.size() == 3) {
                                 if(fill){
-                                shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE, currentColor));
+                                shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE, getFillColour()));
                                 currentPoints = null;
                                 }else{
                                 shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE));
