@@ -82,5 +82,34 @@
         <colour>green</colour>
         <thickness>10</thickness>                
     </shape>
+	<shape>
+       <type>rectangle</type>
+       <start>
+            <x>100</x>
+            <y>100</y>
+        </start>
+        <end>
+            <x>100</x>
+            <y>140</y>
+        </end>
+        <start>
+            <x>100</x>
+            <y>140</y>
+        </start>
+        <end>
+            <x>110</x>
+            <y>180</y>
+        </end>
+        <start>
+            <x>110</x>
+            <y>180</y>
+        </start>
+        <end>
+            <x>100</x>
+            <y>100</y>
+        </end>
+        <colour>blue</colour>
+        <thickness>10</thickness>      
+   </shape>
     
 </shape_script>

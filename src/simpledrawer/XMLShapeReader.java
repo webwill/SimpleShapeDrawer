@@ -53,6 +53,8 @@ public class XMLShapeReader {
         segfx.registerShapeEventListener("SHAPE", sel);
         slList = new ArrayList<>();
         olList = new ArrayList<>();
+        stList = new ArrayList();
+        srList = new ArrayList();
     }
 
     /**
@@ -76,12 +78,20 @@ public class XMLShapeReader {
     private void storeShape(ShapeEvent se) {
         switch (se.getShapeType()) {
             case LINE: // store the line
-              // SimpleLine sl = new SimpleLine(currentPoints, currentColor, currentThickness, ShapeType.LINE);
-              //  slList.add(sl);
+               SimpleLine sl = new SimpleLine(se.getVertices(), se.getColour(), se.getThickness(), ShapeType.LINE);
+                slList.add(sl);
                 break;
             case OVAL: // store the oval
-              //  SimpleOval ol = new SimpleOval(se.getXStart(), se.getYStart(), se.getYStart(), se.getYEnd(), se.getColour(), se.getThickness(), ShapeType.OVAL);
-             //   olList.add(ol);
+                SimpleOval ol = new SimpleOval(se.getVertices(), se.getColour(), se.getThickness(), ShapeType.OVAL);
+                olList.add(ol);
+                break;
+            case TRIANGLE: // store the triangle
+                SimpleTriangle st = new SimpleTriangle(se.getVertices(), se.getColour(), se.getThickness(), ShapeType.TRIANGLE);
+                stList.add(st);
+                break;
+            case RECTANGLE: // store the rectangle
+                SimpleRectangle sr = new SimpleRectangle(se.getVertices(), se.getColour(), se.getThickness(), ShapeType.RECTANGLE);
+                srList.add(sr);
                 break;
         }
     }
@@ -114,6 +124,8 @@ public class XMLShapeReader {
             me.getShapesFromFile("stored_shapes.xml");
             System.out.println("number of lines: " + me.slList.size());
             System.out.println("number of ovals: " + me.olList.size());
+            System.out.println("number of triangles: " + me.stList.size());
+            System.out.println("number of rectangles: " + me.srList.size());
 
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(XMLShapeReader.class.getName()).log(Level.SEVERE, null, ex);
