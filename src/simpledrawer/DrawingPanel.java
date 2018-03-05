@@ -118,11 +118,10 @@ public class DrawingPanel extends JPanel {
     }
 
     public void setCurrentShape(List<Shape> shapes) {
-        System.out.println("The before " + shapes.size());
+        System.out.println(shapes.size());
         this.shapes = shapes;
         this.shapes.clear();
-        System.out.println("The After " + shapes.size());
-        message = "the message is true";
+        System.out.println(shapes.size());
 
     }
 

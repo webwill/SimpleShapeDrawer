@@ -22,7 +22,6 @@ public class ShapeLine {
         
         
         if(p.x >= startPoint.x && p.x <= endPoint.x && p.y >= startPoint.y && p.y <= endPoint.y ){
-             System.out.println("You have click on a line");
         }
         
         //return true the mouse is clicking on the line
