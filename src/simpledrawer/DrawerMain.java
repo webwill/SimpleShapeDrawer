@@ -595,16 +595,20 @@ public class DrawerMain extends javax.swing.JFrame {
         }
         if (newShape.isSelected()) {
             String tempInput = JOptionPane.showInputDialog("Enter the amount of points the shape will have.");
-            int newShapeInput = Integer.parseInt(tempInput);
-            System.out.println(tempInput);
-            if (newShapeInput > 1 && newShapeInput <= 50) {
+            try {
+                int newShapeInput = Integer.parseInt(tempInput);
+                if (newShapeInput > 2 && newShapeInput <= 50) {
 
-                drawingPanel.setShapeSildes(newShapeInput);
-                drawingPanel.setCurrentShapeType(ShapeType.NEWSHAPE);
+                    drawingPanel.setShapeSildes(newShapeInput);
+                    drawingPanel.setCurrentShapeType(ShapeType.NEWSHAPE);
 
-            } else {
+                } else {
+                    Component newShapeErr = null;
+                    JOptionPane.showMessageDialog(newShapeErr, "You may enter a value between 3 and 50.");
+                }
+            } catch(java.lang.NumberFormatException e) {
                 Component newShapeErr = null;
-                JOptionPane.showMessageDialog(newShapeErr, "You may enter a value between 2 and 50.");
+                JOptionPane.showMessageDialog(newShapeErr, "You may enter a value between 3 and 50.");
             }
         }
     }//GEN-LAST:event_radShapeActionPerformed
@@ -689,7 +693,7 @@ public class DrawerMain extends javax.swing.JFrame {
     }//GEN-LAST:event_handleThickness
 
     private void thicknessScrollersetColourBackgroundScroller(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_thicknessScrollersetColourBackgroundScroller
-        
+
         int thickness = thicknessScroller.getValue();
         txtThickness.setText(thickness + "");
         drawingPanel.setCurrentThickness(thicknessScroller.getValue());
