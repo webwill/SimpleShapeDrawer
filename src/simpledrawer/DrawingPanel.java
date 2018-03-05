@@ -118,10 +118,7 @@ public class DrawingPanel extends JPanel {
     }
 
     public void setCurrentShape(List<Shape> shapes) {
-        System.out.println(shapes.size());
         this.shapes = shapes;
-        this.shapes.clear();
-        System.out.println(shapes.size());
 
     }
 
