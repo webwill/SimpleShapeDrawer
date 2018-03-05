@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 
 public class Shape{
     
@@ -14,12 +15,19 @@ public class Shape{
     private int thickness;
     // Type of shape e.g. line or oval or triangle
     private ShapeType shapeType;
-
+    protected Color fill;
     public Shape(List<Point> v, Color c, int t, ShapeType st) {
         vertices = v;
         colour = c;
         thickness = t;
         shapeType = st;
+    }
+    public Shape(List<Point> v, Color c, int t, ShapeType st, Color fillShape) {
+        vertices = v;
+        colour = c;
+        thickness = t;
+        shapeType = st;
+        fill = fillShape;
     }
     
     
@@ -56,12 +64,21 @@ public class Shape{
     }
         
      public void drawShape(Graphics2D g2d, float currentBrightness){
+        if(fill == null){
+            lineShape(g2d, currentBrightness);
+       }else{
+            fillShape(g2d, currentBrightness);
+       }
+}
+        
+     
+
+    public void lineShape(Graphics2D g2d, float currentBrightness){
         Color c = scaleColour(colour,currentBrightness);
        
         g2d.setColor(c);
         // set the thickness of the line
         g2d.setStroke(new BasicStroke(thickness));
-        
         
         for(int i = 0; i <  vertices.size(); i++){
            if(i == vertices.size()-1){
@@ -69,8 +86,21 @@ public class Shape{
            }else{
             g2d.drawLine(vertices.get(i).x, vertices.get(i).y, vertices.get(i+1).x, vertices.get(i+1).y);
            }
+    }
+    
+    }
+    public void fillShape(Graphics2D g2d, float currentBrightness){
+       int[] x = new int[vertices.size()];
+       int[] y = new int[vertices.size()];
+       for(int i = 0 ; i < vertices.size(); i++){
+           x[i] = vertices.get(i).x;
+           y[i] = vertices.get(i).y;
+           
        }
-     }
+       g2d.setColor(getColour());
+       Polygon p = new Polygon(x, y, vertices.size());
+       g2d.fillPolygon(p);
+    }
      
      public Color scaleColour(Color c, float currentBrightness) {
         int red = (int) (c.getRed() * currentBrightness);
@@ -86,3 +116,4 @@ public class Shape{
         return scaledColour;
     }
 }
+
