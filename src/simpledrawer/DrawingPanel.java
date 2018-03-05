@@ -45,6 +45,8 @@ public class DrawingPanel extends JPanel {
     private String message = "";
 
     int[][] grid;
+    
+    private boolean fill;
 
     private boolean gameIsRunning = false;
 
@@ -251,6 +253,10 @@ public class DrawingPanel extends JPanel {
     public int getSildes() {
         return shapeSildes;
     }
+    
+    public void fillShape(boolean fill){
+        this.fill = fill;
+    }   
 
     public void rectIsSelected(Point p) {
         for (int i = 0; i < rectLine.size(); i++) {
@@ -328,8 +334,13 @@ public class DrawingPanel extends JPanel {
                         if (currentPoints.size() <= 2) {
                             currentPoints.add(new Point(e.getX(), e.getY()));
                             if (currentPoints.size() == 2) {
+                               if(fill){
+                                shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.OVAL, currentColor));
+                                currentPoints = null;
+                                }else{
                                 shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.OVAL));
                                 currentPoints = null;
+                                }
                                 break;
                             }
                         } else {
@@ -341,12 +352,17 @@ public class DrawingPanel extends JPanel {
                         if (currentPoints.size() <= 3) {
                             currentPoints.add(new Point(e.getX(), e.getY()));
                             if (currentPoints.size() == 3) {
+                                if(fill){
+                                shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE, currentColor));
+                                currentPoints = null;
+                                }else{
                                 shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.TRIANGLE));
                                 currentPoints = null;
+                                }
                                 break;
                             }
                         } else {
-                            currentPoints.clear();
+                            currentPoints.clear();            
                         }
                         break;
                         
@@ -354,8 +370,13 @@ public class DrawingPanel extends JPanel {
                         if (currentPoints.size() <= 4) {
                             currentPoints.add(new Point(e.getX(), e.getY()));
                             if (currentPoints.size() == 4) {
+                                if(fill){
+                                shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.RECTANGLE, currentColor));
+                                currentPoints = null;
+                                }else{
                                 shapes.add(factory.getShapeType(currentPoints, currentColor, currentThickness, ShapeType.RECTANGLE));
                                 currentPoints = null;
+                                }
                                 break;
                             }
                         } else {

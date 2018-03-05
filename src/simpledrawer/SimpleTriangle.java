@@ -19,6 +19,10 @@ public class SimpleTriangle extends Shape implements ShapeArea, SelectableShape{
     public SimpleTriangle(List<Point> v, Color c, int t, ShapeType st) {
         super(v, c, t, st);
     }
+    public SimpleTriangle(List<Point> v, Color c, int t, ShapeType st, Color fill) {
+        super(v, c, t, st,fill);
+    }
+    
 
     @Override
     public double getArea() {
@@ -39,20 +43,7 @@ public class SimpleTriangle extends Shape implements ShapeArea, SelectableShape{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void drawShape(Graphics2D g2d, float currentBrightness) {
-       // super.drawShape(g2d, currentBrightness); //To change body of generated methods, choose Tools | Templates.
-       int[] x = new int[vertices.size()];
-       int[] y = new int[vertices.size()];
-       for(int i = 0 ; i < vertices.size(); i++){
-           x[i] = vertices.get(i).x;
-           y[i] = vertices.get(i).y;
-           
-       }
-       g2d.setColor(getColour());
-       Polygon p = new Polygon(x, y, 3);
-       g2d.fillPolygon(p);
-    }
+    
     
     
 }

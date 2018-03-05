@@ -24,6 +24,12 @@ public class SimpleOval extends Shape implements ShapeArea, SelectableShape{
         this.colour = c;
         this.t = t;
     }
+    public SimpleOval(List<Point> v, Color c, int t, ShapeType st, Color fill) {
+        super(v, c, t, st,fill);
+        this.colour = c;
+        
+        this.t = t;
+    }
     @Override
     public double getArea() {
         int line1 = vertices.get(1).x- vertices.get(0).x;
@@ -45,13 +51,24 @@ public class SimpleOval extends Shape implements ShapeArea, SelectableShape{
         int bottomXs =  ((vertices.get(1).x- xs <= 0))? vertices.get(1).x - xs : vertices.get(1).x + xs ;
         // draw the oval        
         
+        if(fill == null){
+        
         if((vertices.get(1).x - xs) < 0){   
         g2d.drawOval(xs, ys,Math.abs( vertices.get(1).x - xs)  ,  vertices.get(1).y - ys);        
         }else{
             g2d.drawOval(xs, ys,  vertices.get(1).x - xs,  vertices.get(1).y - ys);
         }
-        
+        }
+        else{
+             if((vertices.get(1).x - xs) < 0){   
+        g2d.fillOval(xs, ys,Math.abs( vertices.get(1).x - xs)  ,  vertices.get(1).y - ys);        
+        }else{
+            g2d.fillOval(xs, ys,  vertices.get(1).x - xs,  vertices.get(1).y - ys);
+        }
+        }
     }    
+    
+    
 
     @Override
     public boolean isSelected() {

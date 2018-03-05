@@ -59,6 +59,7 @@ public class DrawerMain extends javax.swing.JFrame {
     private void initComponents() {
 
         grpShape = new javax.swing.ButtonGroup();
+        ShapeRenderGroup = new javax.swing.ButtonGroup();
         panControls = new javax.swing.JPanel();
         panScroller = new javax.swing.JPanel();
         panRedScroller = new javax.swing.JPanel();
@@ -79,12 +80,6 @@ public class DrawerMain extends javax.swing.JFrame {
         labBrightness = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         panMoreControls = new javax.swing.JPanel();
-        panShape = new javax.swing.JPanel();
-        radLine = new javax.swing.JRadioButton();
-        radOval = new javax.swing.JRadioButton();
-        radTriangle = new javax.swing.JRadioButton();
-        radRectangle = new javax.swing.JRadioButton();
-        newShape = new javax.swing.JRadioButton();
         panThickness = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         thicknessScroller = new javax.swing.JScrollBar();
@@ -117,6 +112,16 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         TimeLabel = new java.awt.Label();
         startTimerButton = new javax.swing.JButton();
+        panShape = new javax.swing.JPanel();
+        radLine = new javax.swing.JRadioButton();
+        radOval = new javax.swing.JRadioButton();
+        radTriangle = new javax.swing.JRadioButton();
+        radRectangle = new javax.swing.JRadioButton();
+        newShape = new javax.swing.JRadioButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        lineShapeButton = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         panDrawingArea = new DrawingPanel();
         jButton2 = new javax.swing.JButton();
 
@@ -241,57 +246,6 @@ public class DrawerMain extends javax.swing.JFrame {
         panControls.add(panScroller, java.awt.BorderLayout.NORTH);
 
         panMoreControls.setLayout(new java.awt.GridLayout(5, 0));
-
-        panShape.setName(""); // NOI18N
-        panShape.setPreferredSize(new java.awt.Dimension(253, 53));
-
-        grpShape.add(radLine);
-        radLine.setSelected(true);
-        radLine.setText("Line");
-        radLine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radShapeActionPerformed(evt);
-            }
-        });
-        panShape.add(radLine);
-
-        grpShape.add(radOval);
-        radOval.setText("Oval");
-        radOval.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radShapeActionPerformed(evt);
-            }
-        });
-        panShape.add(radOval);
-
-        grpShape.add(radTriangle);
-        radTriangle.setText("Triangle");
-        radTriangle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radShapeActionPerformed(evt);
-            }
-        });
-        panShape.add(radTriangle);
-
-        grpShape.add(radRectangle);
-        radRectangle.setText("Rectangle");
-        radRectangle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radShapeActionPerformed(evt);
-            }
-        });
-        panShape.add(radRectangle);
-
-        grpShape.add(newShape);
-        newShape.setText("New Shape");
-        newShape.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radShapeActionPerformed(evt);
-            }
-        });
-        panShape.add(newShape);
-
-        panMoreControls.add(panShape);
 
         panThickness.setLayout(new java.awt.FlowLayout(0));
 
@@ -515,6 +469,109 @@ public class DrawerMain extends javax.swing.JFrame {
         jPanel2.add(startTimerButton);
 
         jPanel1.add(jPanel2);
+
+        panShape.setName(""); // NOI18N
+        panShape.setPreferredSize(new java.awt.Dimension(253, 53));
+
+        grpShape.add(radLine);
+        radLine.setSelected(true);
+        radLine.setText("Line");
+        radLine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radShapeActionPerformed(evt);
+            }
+        });
+        panShape.add(radLine);
+
+        grpShape.add(radOval);
+        radOval.setText("Oval");
+        radOval.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radShapeActionPerformed(evt);
+            }
+        });
+        panShape.add(radOval);
+
+        grpShape.add(radTriangle);
+        radTriangle.setText("Triangle");
+        radTriangle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radShapeActionPerformed(evt);
+            }
+        });
+        panShape.add(radTriangle);
+
+        grpShape.add(radRectangle);
+        radRectangle.setText("Rectangle");
+        radRectangle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radShapeActionPerformed(evt);
+            }
+        });
+        panShape.add(radRectangle);
+
+        grpShape.add(newShape);
+        newShape.setText("New Shape");
+        newShape.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radShapeActionPerformed(evt);
+            }
+        });
+        panShape.add(newShape);
+
+        jPanel1.add(panShape);
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(200, 100));
+
+        jLabel11.setText("Shape Render");
+        jLabel11.setToolTipText("");
+
+        ShapeRenderGroup.add(lineShapeButton);
+        lineShapeButton.setSelected(true);
+        lineShapeButton.setText("No Fill");
+        lineShapeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fillShape(evt);
+            }
+        });
+
+        ShapeRenderGroup.add(jRadioButton2);
+        jRadioButton2.setText("Fill Shape");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fillShape(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(lineShapeButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton2))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jLabel11)))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lineShapeButton)
+                    .addComponent(jRadioButton2))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3);
 
         panControls.add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -759,6 +816,14 @@ public class DrawerMain extends javax.swing.JFrame {
         scrBrightness.setValue(50);
     }//GEN-LAST:event_resetButtonMousePressed
 
+    private void fillShape(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillShape
+      if(lineShapeButton.isSelected()){
+           drawingPanel.fillShape(false);
+      }else{
+          drawingPanel.fillShape(true);
+      }
+    }//GEN-LAST:event_fillShape
+
     public void backgroundColourHandler() {
 
         int bgRed, bgGreen, bgBlue;
@@ -846,6 +911,7 @@ public class DrawerMain extends javax.swing.JFrame {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup ShapeRenderGroup;
     private java.awt.Label TimeLabel;
     private javax.swing.JScrollBar backgroundBlueScroller;
     private javax.swing.JScrollBar backgroundGreenScroller;
@@ -862,6 +928,7 @@ public class DrawerMain extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -872,7 +939,10 @@ public class DrawerMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel labBrightness;
+    private javax.swing.JRadioButton lineShapeButton;
     private javax.swing.JRadioButton newShape;
     private javax.swing.JPanel panBlueScroller;
     private javax.swing.JPanel panBlueScroller1;
