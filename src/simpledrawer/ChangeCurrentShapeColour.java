@@ -7,7 +7,7 @@ import java.util.List;
 public class ChangeCurrentShapeColour {    
     
     public void ChangeColour(Color color){
-        DrawingPanel drawingPanel = new DrawingPanel();
+        /*DrawingPanel drawingPanel = new DrawingPanel();
         List<Shape> newShape = new ArrayList<Shape>();
         
         List<Shape>  tempShape = drawingPanel.getCurrentShape();
@@ -21,7 +21,7 @@ public class ChangeCurrentShapeColour {
         
         drawingPanel.clearDisplay();
         drawingPanel.setCurrentShape(newShape);
-        drawingPanel.repaintCanvas();
+     */   
     }
 }
 
