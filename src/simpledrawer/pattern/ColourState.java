@@ -5,6 +5,7 @@
  */
 package simpledrawer.pattern;
 
+import java.awt.Color;
 import simpledrawer.DrawerMain;
 
 /**
@@ -27,8 +28,9 @@ public class ColourState {
         
     }
     
-    public void save(Colour c){
-        
+    public Colour save(Color rgb){
+        System.out.println("The colour state has been save");
+        return new Colour(rgb);
     }
     
 }
