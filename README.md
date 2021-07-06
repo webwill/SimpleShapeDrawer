@@ -1,3 +1,3 @@
 # Simple Shape Drawer
 
-Some of my project for my undergrad degree
+One of my projects, that I developed for my undergraduate degree.
